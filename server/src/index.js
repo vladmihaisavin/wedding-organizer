@@ -1,8 +1,14 @@
 const express = require('express')
 const bodyParser = require('body-parser')
+const fs = require('fs')
+const morgan = require('morgan')
+const path = require('path')
 
 const app = express()
 const port = process.env.PORT || 6606
+
+const accessLogStream = fs.createWriteStream(path.join(__dirname, '../access.log'), { flags: 'a' })
+app.use(morgan('short', { stream: accessLogStream }))
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
