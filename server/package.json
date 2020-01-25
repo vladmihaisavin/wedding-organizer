@@ -1,0 +1,19 @@
+{
+  "name": "server",
+  "version": "0.1.0",
+  "author": "Vlad-Mihai Savin",
+  "license": "MIT",
+  "scripts": {
+    "start": "nodemon ./server/src/index.js",
+    "test": "mocha tests/server"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "concurrently": "^5.0.2",
+    "mocha": "^7.0.0",
+    "nodemon": "^2.0.2"
+  }
+}
