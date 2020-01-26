@@ -1,3 +1,4 @@
+require('dotenv').config()
 const config = require('./infra/config')
 const prepareDatabase = require('./infra/database')
 const createApp = require('./src/app')
