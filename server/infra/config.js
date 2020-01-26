@@ -46,5 +46,19 @@ module.exports = convict({
       default: 'test_db',
       env: 'MYSQL_DATABASE'
     }
+  },
+  auth: {
+    secret: {
+      doc: 'Secret key used by passport js to sign the JWT',
+      format: String,
+      default: 'asd123',
+      env: 'AUTH_SECRET'
+    },
+    expiresIn: {
+      doc: 'Token TTL',
+      format: Number,
+      default: 60 * 60,
+      env: 'AUTH_EXPIRES_IN'
+    }
   }
-}).validate({allowed: 'strict'})
+}).validate({ allowed: 'strict' })

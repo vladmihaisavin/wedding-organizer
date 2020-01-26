@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const getOptions = () => {
     const options = {
-        baseURL: 'http://localhost:1338/api',
+        baseURL: '/api',
         timeout: 1000,
         headers: {
             'Accepts': 'application/json',
