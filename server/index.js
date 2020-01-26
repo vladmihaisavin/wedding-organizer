@@ -1,23 +1,6 @@
-const config = require('./config')
+const config = require('./infra/config')
+const prepareDatabase = require('./infra/database')
 const createApp = require('./src/app')
-
-const startServer = () => {
-  const app = createApp(config)
-
-  return new Promise((resolve, reject) => {
-    try {
-      const server = app.listen(config.get('port'), () => {
-        console.log(`Listening on port ${server.address().port}`)
-        return resolve()
-      })
-      server.once('error', err => {
-        return reject(err)
-      })
-    } catch (err) {
-      reject(err)
-    }
-  })
-}
 
 const setupProcessHooks = () => {
   process.on('uncaughtException', (err) => {
@@ -31,12 +14,31 @@ const setupProcessHooks = () => {
   })
 }
 
+const startServer = (mysqlClient) => {
+  const app = createApp({ config, mysqlClient })
+
+  return new Promise((resolve, reject) => {
+    try {
+      const server = app.listen(config.get('app.port'), () => {
+        console.log(`Listening on port ${server.address().port}`)
+        return resolve()
+      })
+      server.once('error', err => {
+        return reject(err)
+      })
+    } catch (err) {
+      reject(err)
+    }
+  })
+}
+
 (async () => {
   try {
     console.log('Application starting up')
 
     setupProcessHooks()
-    await startServer()
+    const mysqlClient = await prepareDatabase(config)
+    await startServer(mysqlClient)
     
     console.log('Application startup completed')
   } catch (err) {

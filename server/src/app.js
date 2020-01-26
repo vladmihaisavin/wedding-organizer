@@ -10,14 +10,14 @@ const setupAccessLogs = (app) => {
   app.use(morgan('short', { stream: accessLogStream }))
 }
 
-module.exports = (config) => {
+module.exports = ({ config, mysqlClient }) => {
   const app = express()
 
   setupAccessLogs(app)
   app.use(bodyParser.json())
   app.use(bodyParser.urlencoded({ extended: true }))
 
-  app.use('/api', routes(config))
+  app.use('/api', routes({ config, mysqlClient }))
 
   app.all('*', (req, res) => {
     res.sendStatus(404)
@@ -26,6 +26,6 @@ module.exports = (config) => {
     console.error('Internal server error', err)
     res.sendStatus(500)
   })
-  
+
   return app
 }
