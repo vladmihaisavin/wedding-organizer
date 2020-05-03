@@ -18,7 +18,7 @@ ReactDOM.render(
                 <Redirect to="/dashboard" />
             </Route>
             <Route path="/login" component={Login} />
-            <ProtectedRoute path="/dashboard" component={Main} content={Users} />
+            <ProtectedRoute exact path="/dashboard" component={Main} content={Users} />
             <Route component={NotFound} />
         </Switch>
     </Router>,
