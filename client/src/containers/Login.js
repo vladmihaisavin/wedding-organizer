@@ -76,21 +76,21 @@ class SignIn extends React.Component {
 
     login = (e) => {
         e.preventDefault()
-        let $this = this
         httpClient.post('/accounts/login', {
             email: this.state.email,
             password: this.state.password
         })
-        .then(function (response) {
-            if (response.data.errors) {
-                $this.signalError(JSON.stringify(response.data.errors))
+        .then((response) => {
+            console.log(response)
+            if (response.status === 403) {
+                this.signalError('Email and password do not match.')
             } else {
-                localStorage.setItem('token', response.data.data.token)
-                $this.signalSuccess()
+                localStorage.setItem('token', response.data.token)
+                this.signalSuccess()
             }
         })
-        .catch(function (error) {
-            $this.signalError('Internal server error.')
+        .catch((error) => {
+            this.signalError('Internal server error.')
         })
     }
 
