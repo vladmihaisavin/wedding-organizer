@@ -1,7 +1,7 @@
   
-import passport from 'passport';
+const passport = require('passport');
 
-export default (req, res, next) => {
+module.exports = (req, res, next) => {
   passport.authenticate('jwt', { session: false }, (err, user) => {
     if (err) {
       res.status(500).end()

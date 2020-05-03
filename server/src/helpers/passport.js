@@ -1,6 +1,6 @@
-import { ExtractJwt, Strategy as JwtStrategy } from 'passport-jwt'
+const { ExtractJwt, Strategy: JwtStrategy } = require('passport-jwt')
 
-export default ({ config, passport, repositories }) => {
+module.exports = ({ config, passport, repositories }) => {
   const opts = {}
   opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken()
   opts.secretOrKey = config.get('auth.secret')
