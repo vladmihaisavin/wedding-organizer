@@ -1,1 +1,1 @@
-# wedding-organizer
+# express-react-boilerplate

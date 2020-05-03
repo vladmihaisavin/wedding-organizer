@@ -1,12 +1,12 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { createMuiTheme, ThemeProvider, withStyles } from '@material-ui/core/styles';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Hidden from '@material-ui/core/Hidden';
-import Typography from '@material-ui/core/Typography';
-import Link from '@material-ui/core/Link';
-import Navigator from '../components/structure/Navigator';
-import Header from '../components/structure/Header';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { createMuiTheme, ThemeProvider, withStyles } from '@material-ui/core/styles'
+import CssBaseline from '@material-ui/core/CssBaseline'
+import Hidden from '@material-ui/core/Hidden'
+import Typography from '@material-ui/core/Typography'
+import Link from '@material-ui/core/Link'
+import Navigator from '../components/structure/Navigator'
+import Header from '../components/structure/Header'
 
 function Copyright() {
   return (
@@ -18,7 +18,7 @@ function Copyright() {
       {new Date().getFullYear()}
       {'.'}
     </Typography>
-  );
+  )
 }
 
 let theme = createMuiTheme({
@@ -49,7 +49,7 @@ let theme = createMuiTheme({
       minHeight: 48,
     },
   },
-});
+})
 
 theme = {
   ...theme,
@@ -129,9 +129,9 @@ theme = {
       },
     },
   },
-};
+}
 
-const drawerWidth = 256;
+const drawerWidth = 256
 
 const styles = {
   root: {
@@ -158,15 +158,15 @@ const styles = {
     padding: theme.spacing(2),
     background: '#eaeff1',
   },
-};
+}
 
 function Main(props) {
-  const { classes } = props;
-  const [mobileOpen, setMobileOpen] = React.useState(false);
+  const { classes } = props
+  const [mobileOpen, setMobileOpen] = React.useState(false)
 
   const handleDrawerToggle = () => {
-    setMobileOpen(!mobileOpen);
-  };
+    setMobileOpen(!mobileOpen)
+  }
 
   return (
     <ThemeProvider theme={theme}>
@@ -196,11 +196,11 @@ function Main(props) {
         </div>
       </div>
     </ThemeProvider>
-  );
+  )
 }
 
 Main.propTypes = {
   classes: PropTypes.object.isRequired,
-};
+}
 
-export default withStyles(styles)(Main);
+export default withStyles(styles)(Main)

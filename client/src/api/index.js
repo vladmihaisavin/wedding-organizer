@@ -1,5 +1,5 @@
 
-import axios from 'axios';
+import axios from 'axios'
 
 const getOptions = () => {
     const options = {
@@ -10,16 +10,16 @@ const getOptions = () => {
             'Content-Type': 'application/json',
         },
         validateStatus: (status) => {
-            return status < 500;
+            return status < 500
         }
     }
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('token')
     if (token) {
-        options.headers['Authorization'] = `Bearer ${ localStorage.getItem('token') }`;
+        options.headers['Authorization'] = `Bearer ${ localStorage.getItem('token') }`
     }
-    return options;
-};
+    return options
+}
 
-const httpClient = axios.create(getOptions());
+const httpClient = axios.create(getOptions())
 
-export default httpClient;
+export default httpClient

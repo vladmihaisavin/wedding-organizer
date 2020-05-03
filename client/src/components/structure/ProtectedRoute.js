@@ -1,6 +1,6 @@
-import React from 'react';
-import { Route, Redirect } from 'react-router-dom';
-import { isTokenValid } from '../../auth/utils';
+import React from 'react'
+import { Route, Redirect } from 'react-router-dom'
+import { isTokenValid } from '../../auth/utils'
 
 const ProtectedRoute = ({component: Component, ...rest}) => {
   return (
@@ -13,4 +13,4 @@ const ProtectedRoute = ({component: Component, ...rest}) => {
   )
 }
 
-export default ProtectedRoute;
+export default ProtectedRoute

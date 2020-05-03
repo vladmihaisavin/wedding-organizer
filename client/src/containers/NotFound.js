@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import '../css/not-found.css'
 
 export default function NotFound() {

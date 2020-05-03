@@ -1,57 +1,57 @@
-import React from 'react';
-import { Redirect } from 'react-router-dom';
-import PropTypes from 'prop-types';
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import FormControl from '@material-ui/core/FormControl';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Input from '@material-ui/core/Input';
-import InputLabel from '@material-ui/core/InputLabel';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
-import withStyles from '@material-ui/core/styles/withStyles';
-import httpClient from '../api';
-import CustomizedSnackbar from '../components/reusable/Snackbar';
-import { isTokenValid } from '../auth/utils';
+import React from 'react'
+import { Redirect } from 'react-router-dom'
+import PropTypes from 'prop-types'
+import Avatar from '@material-ui/core/Avatar'
+import Button from '@material-ui/core/Button'
+import CssBaseline from '@material-ui/core/CssBaseline'
+import FormControl from '@material-ui/core/FormControl'
+import FormControlLabel from '@material-ui/core/FormControlLabel'
+import Checkbox from '@material-ui/core/Checkbox'
+import Input from '@material-ui/core/Input'
+import InputLabel from '@material-ui/core/InputLabel'
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
+import Paper from '@material-ui/core/Paper'
+import Typography from '@material-ui/core/Typography'
+import withStyles from '@material-ui/core/styles/withStyles'
+import httpClient from '../api'
+import CustomizedSnackbar from '../components/reusable/Snackbar'
+import { isTokenValid } from '../auth/utils'
 
 const styles = theme => ({
     main: {
         width: 'auto',
         display: 'block', // Fix IE 11 issue.
-        marginLeft: theme.spacing.unit * 3,
-        marginRight: theme.spacing.unit * 3,
-        [theme.breakpoints.up(400 + theme.spacing.unit * 3 * 2)]: {
+        marginLeft: theme.spacing(1) * 3,
+        marginRight: theme.spacing(1) * 3,
+        [theme.breakpoints.up(400 + theme.spacing(1) * 3 * 2)]: {
             width: 400,
             marginLeft: 'auto',
             marginRight: 'auto',
         },
     },
     paper: {
-        marginTop: theme.spacing.unit * 8,
+        marginTop: theme.spacing(1) * 8,
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme.spacing.unit * 3}px`,
+        padding: `${theme.spacing(1) * 2}px ${theme.spacing(1) * 3}px ${theme.spacing(1) * 3}px`,
     },
     avatar: {
-        margin: theme.spacing.unit,
+        margin: theme.spacing(1),
         backgroundColor: theme.palette.secondary.main,
     },
     form: {
         width: '100%', // Fix IE 11 issue.
-        marginTop: theme.spacing.unit,
+        marginTop: theme.spacing(1),
     },
     submit: {
-        marginTop: theme.spacing.unit * 3,
+        marginTop: theme.spacing(1) * 3,
     },
-});
+})
 
 class SignIn extends React.Component {
     constructor(props) {
-        super(props);
+        super(props)
         this.state = {
             success: false,
             errors: false,
@@ -59,44 +59,44 @@ class SignIn extends React.Component {
             email: '',
             password: ''
         }
-    };
+    }
 
     signalError = (message) => {
         this.setState({ 
             errors: true,
             errorMessage: message
-        });
-    };
+        })
+    }
 
     signalSuccess = () => {
         this.setState({ 
             success: true
-        });
+        })
     }
 
     login = (e) => {
-        e.preventDefault();
-        let $this = this;
-        httpClient.post('/account/login', { 
+        e.preventDefault()
+        let $this = this
+        httpClient.post('/accounts/login', {
             email: this.state.email,
             password: this.state.password
         })
         .then(function (response) {
             if (response.data.errors) {
-                $this.signalError(JSON.stringify(response.data.errors));
+                $this.signalError(JSON.stringify(response.data.errors))
             } else {
-                localStorage.setItem('token', response.data.data.token);
-                $this.signalSuccess();
+                localStorage.setItem('token', response.data.data.token)
+                $this.signalSuccess()
             }
         })
         .catch(function (error) {
-            $this.signalError('Internal server error.');
-        });
-    };
+            $this.signalError('Internal server error.')
+        })
+    }
 
     render() {
         if (isTokenValid() || this.state.success) {
-            return (<Redirect to={{ pathname: '/dashboard' }}/>);
+            return (<Redirect to={{ pathname: '/dashboard' }}/>)
         }
         return (
             <main className={this.props.classes.main}>
@@ -134,12 +134,12 @@ class SignIn extends React.Component {
                     </form>
                 </Paper>
             </main>
-        );
+        )
     }
 }
 
 SignIn.propTypes = {
     classes: PropTypes.object.isRequired,
-};
+}
 
-export default withStyles(styles)(SignIn);
+export default withStyles(styles)(SignIn)
