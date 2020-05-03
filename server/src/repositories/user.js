@@ -1,11 +1,11 @@
 const userModel = require('../models/user')
 const { getCurrentTimestamp } = require('../helpers/moment')
-const { generateSimpleFilterObject } = require('../helpers/mysqlClient')
+const { generateSimpleFilterObject, prepareResults } = require('../helpers/mysqlClient')
 
 module.exports = (mysqlClient) => {
   const list = async () => {
     try {
-      return await mysqlClient.list(userModel.tableName, userModel.fields.projection)
+      return prepareResults(await mysqlClient.list(userModel.tableName, userModel.fields.projection))
     } catch (err) {
       console.error(err)
       throw err
@@ -18,7 +18,7 @@ module.exports = (mysqlClient) => {
       body.password = await hashPassword(body.password)
       body.createdAt = now
       body.updatedAt = now
-      return await mysqlClient.store(userModel.tableName, body)
+      return prepareResults(await mysqlClient.store(userModel.tableName, body))
     } catch (err) {
       console.error(err)
       throw err
@@ -27,11 +27,11 @@ module.exports = (mysqlClient) => {
 
   const getById = async (id) => {
     try {
-      return await mysqlClient.fetch(
+      return prepareResults(await mysqlClient.fetch(
         userModel.tableName,
         generateSimpleFilterObject(['id'], id),
         userModel.fields.projection
-      )
+      ))
     } catch (err) {
       console.error(err)
       throw err
@@ -40,11 +40,14 @@ module.exports = (mysqlClient) => {
 
   const getByEmail = async (email) => {
     try {
-      return await mysqlClient.fetch(
+      return prepareResults(await mysqlClient.fetch(
         userModel.tableName,
         generateSimpleFilterObject(['email'], email),
-        userModel.fields.projection
-      )
+        [
+          ...userModel.fields.projection,
+          'password'
+        ]
+      ))
     } catch (err) {
       console.error(err)
       throw err
@@ -54,11 +57,11 @@ module.exports = (mysqlClient) => {
   const update = async (id, body) => {
     try {
       body.updatedAt = getCurrentTimestamp()
-      return await mysqlClient.update(
+      return prepareResults(await mysqlClient.update(
         userModel.tableName,
         body,
         generateSimpleFilterObject(['id'], id),
-      )
+      ))
     } catch (err) {
       console.error(err)
       throw err
@@ -67,10 +70,10 @@ module.exports = (mysqlClient) => {
 
   const destroy = async (id) => {
     try {
-      return await mysqlClient.destroy(
+      return prepareResults(await mysqlClient.destroy(
         userModel.tableName,
         generateSimpleFilterObject(['id'], id),
-      )
+      ))
     } catch (err) {
       console.error(err)
       throw err

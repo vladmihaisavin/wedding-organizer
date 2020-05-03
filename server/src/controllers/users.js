@@ -2,7 +2,7 @@ const { Router } = require('express')
 const validate = require('express-validation')
 const validationRules = require('../validation/users')
 
-module.exports = ({ config, userRepository}) => {
+module.exports = (userRepository) => {
   const app = new Router()
 
   app.get('/', async (req, res) => {
@@ -16,7 +16,7 @@ module.exports = ({ config, userRepository}) => {
 
   app.post('/', validate(validationRules.store), async (req, res) => {
     try {
-      const results = (await userRepository.store(req.body)).results
+      const results = await userRepository.store(req.body)
       return res.status(201).json({ id: results.insertId })
     } catch (err) {
       return res.sendStatus(500)

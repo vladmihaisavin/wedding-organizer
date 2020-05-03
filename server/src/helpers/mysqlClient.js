@@ -7,6 +7,11 @@ const generateSimpleFilterObject = (placeholders, values) => ({
   values
 })
 
+const prepareResults = (response) => {
+  return JSON.parse(JSON.stringify(response.results))
+}
+
 module.exports = {
-  generateSimpleFilterObject
+  generateSimpleFilterObject,
+  prepareResults
 }

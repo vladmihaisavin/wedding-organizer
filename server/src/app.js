@@ -24,9 +24,8 @@ module.exports = ({ config, mysqlClient }) => {
   app.use(passport.initialize())
   passportConfig({ config, passport, repositories })
 
-  app.use('/api', routes({ 
+  app.use('/api', routes({
     config,
-    mysqlClient,
     repositories
   }))
 
