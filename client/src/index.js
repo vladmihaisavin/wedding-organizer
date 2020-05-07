@@ -4,9 +4,9 @@ import * as serviceWorker from './serviceWorker'
 import { createBrowserHistory } from "history"
 import { Router, Route, Switch, Redirect } from "react-router-dom"
 import ProtectedRoute from './components/structure/ProtectedRoute'
-import Login from './containers/Login'
-import NotFound from './containers/NotFound'
-import Main from './containers/Main'
+import Login from './pages/Login'
+import NotFound from './pages/NotFound'
+import Main from './pages/Main'
 import Users from './components/sections/Users'
 
 const hist = createBrowserHistory()
