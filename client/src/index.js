@@ -8,6 +8,7 @@ import Login from './pages/Login'
 import NotFound from './pages/NotFound'
 import Main from './pages/Main'
 import Users from './components/sections/Users'
+import Dashboard from './components/sections/Dashboard'
 
 const hist = createBrowserHistory()
 
@@ -18,7 +19,8 @@ ReactDOM.render(
                 <Redirect to="/dashboard" />
             </Route>
             <Route path="/login" component={Login} />
-            <ProtectedRoute exact path="/dashboard" component={Main} content={Users} />
+            <ProtectedRoute exact path="/dashboard" component={Main} content={Dashboard} />
+            <ProtectedRoute exact path="/users" component={Main} content={Users} />
             <Route component={NotFound} />
         </Switch>
     </Router>,

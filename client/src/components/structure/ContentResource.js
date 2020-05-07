@@ -11,7 +11,7 @@ import IconButton from '@material-ui/core/IconButton'
 import { withStyles } from '@material-ui/core/styles'
 import SearchIcon from '@material-ui/icons/Search'
 import RefreshIcon from '@material-ui/icons/Refresh'
-import ContentStyles from '../../styles/content'
+import ContentResourceStyles from '../../styles/contentResource'
 
 function Content(props) {
   const { classes, customProps } = props
@@ -58,4 +58,4 @@ Content.propTypes = {
   classes: PropTypes.object.isRequired,
 }
 
-export default withStyles(ContentStyles)(Content)
+export default withStyles(ContentResourceStyles)(Content)

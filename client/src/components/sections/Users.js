@@ -1,6 +1,6 @@
 import React from 'react'
 import EmptyResourceTable from '../reusable/EmptyResourceTable'
-import Content from '../structure/Content'
+import Content from '../structure/ContentResource'
 import { getUsers } from '../../services/users'
 
 function Users(props) {
