@@ -1,12 +1,12 @@
 import React from 'react'
 import { Route, Redirect } from 'react-router-dom'
-import { isTokenValid } from '../../auth/utils'
+import { hasAuthToken } from '../../services/auth'
 
 const ProtectedRoute = ({component: Component, ...rest}) => {
   return (
     <Route
       {...rest}
-      render={(props) => isTokenValid()
+      render={(props) => hasAuthToken()
         ? <Component {...props} content={rest.content} />
         : <Redirect to={{pathname: '/login', state: {from: props.location}}} />}
     />

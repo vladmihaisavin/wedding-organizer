@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import AppBar from '@material-ui/core/AppBar'
-import Avatar from '@material-ui/core/Avatar'
 import Grid from '@material-ui/core/Grid'
 import Hidden from '@material-ui/core/Hidden'
 import IconButton from '@material-ui/core/IconButton'
@@ -12,6 +11,7 @@ import Typography from '@material-ui/core/Typography'
 import { withStyles } from '@material-ui/core/styles'
 import HeaderStyles from '../../styles/header'
 import { ucFirst } from '../../helpers'
+import AvatarMenu from './AvatarMenu'
 
 function getPageName() {
   return ucFirst(window.location.pathname.split('/')[1])
@@ -49,9 +49,7 @@ function Header(props) {
               </Link>
             </Grid>
             <Grid item>
-              <IconButton color="inherit" className={classes.iconButtonAvatar}>
-                <Avatar src="/static/images/avatar/1.jpg" alt="My Avatar" />
-              </IconButton>
+              <AvatarMenu />
             </Grid>
           </Grid>
         </Toolbar>

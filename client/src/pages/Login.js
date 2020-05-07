@@ -11,98 +11,81 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
 import Paper from '@material-ui/core/Paper'
 import Typography from '@material-ui/core/Typography'
 import withStyles from '@material-ui/core/styles/withStyles'
-import httpClient from '../httpClient'
 import CustomizedSnackbar from '../components/reusable/Snackbar'
-import { isTokenValid } from '../auth/utils'
+import { hasAuthToken, login } from '../services/auth'
 import LoginStyles from '../styles/login'
+import Cookies from 'js-cookie'
 
-class SignIn extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            success: false,
-            errors: false,
-            errorMessage: '',
-            email: '',
-            password: ''
-        }
-    }
+function Login(props) {
+    const [success, signalSuccess] = React.useState(false)
+    const [error, setError] = React.useState({ active: false, message: '' })
+    const [email, setEmail] = React.useState('')
+    const [password, setPassword] = React.useState('')
 
-    signalError = (message) => {
-        this.setState({ 
-            errors: true,
-            errorMessage: message
-        })
-    }
-
-    signalSuccess = () => {
-        this.setState({ 
-            success: true
-        })
-    }
-
-    login = (e) => {
+    const loginAction = (e) => {
         e.preventDefault()
-        httpClient.post('/accounts/login', {
-            email: this.state.email,
-            password: this.state.password
-        })
+        login({ email, password })
         .then((response) => {
             console.log(response)
             if (response.status === 403) {
-                this.signalError('Email and password do not match.')
+                setError({
+                    active: true,
+                    message: 'Email and password do not match.'
+                })
             } else {
-                localStorage.setItem('token', response.data.token)
-                this.signalSuccess()
+                Cookies.set('AUTH_TOKEN', response.data.token, { expires: 1/24 })
+                signalSuccess(true)
             }
         })
-        .catch((error) => {
-            this.signalError('Internal server error.')
+        .catch((err) => {
+            setError({
+                active: true,
+                message: 'Internal server error.'
+            })
         })
     }
 
-    render() {
-        if (isTokenValid() || this.state.success) {
-            return (<Redirect to={{ pathname: '/dashboard' }}/>)
-        }
-        return (
-            <main className={this.props.classes.main}>
-                {this.state.errors ? <CustomizedSnackbar severity="error" message={this.state.errorMessage} /> : ''}
-                <CssBaseline />
-                <Paper className={this.props.classes.paper}>
-                    <Avatar className={this.props.classes.avatar}>
-                        <LockOutlinedIcon />
-                    </Avatar>
-                    <Typography component="h1" variant="h5">
-                        Sign in
-                    </Typography>
-                    <form className={this.props.classes.form} onSubmit={this.login} >
-                        <FormControl margin="normal" required fullWidth>
-                            <InputLabel htmlFor="email">Email Address</InputLabel>
-                            <Input id="email" name="email" autoComplete="email" autoFocus value={this.state.email} onChange={(e) => {this.setState({email: e.target.value})}} />
-                        </FormControl>
-                        <FormControl margin="normal" required fullWidth>
-                            <InputLabel htmlFor="password">Password</InputLabel>
-                            <Input name="password" type="password" id="password" autoComplete="current-password" value={this.state.password} onChange={(e) => {this.setState({password: e.target.value})}}/>
-                        </FormControl>
-                        <Button
-                            type="submit"
-                            fullWidth
-                            variant="contained"
-                            color="primary"
-                            className={this.props.classes.submit}
-                        >
-                            Sign in
-                        </Button>
-                    </form>
-                </Paper>
-            </main>
-        )
+    if (hasAuthToken() || success) {
+        return (<Redirect to={{ pathname: '/dashboard' }}/>)
     }
+
+    return (
+        <main className={props.classes.main}>
+            {error.active ? <CustomizedSnackbar severity="error" message={error.message} /> : ''}
+            <CssBaseline />
+            <Paper className={props.classes.paper}>
+                <Avatar className={props.classes.avatar}>
+                    <LockOutlinedIcon />
+                </Avatar>
+                <Typography component="h1" variant="h5">
+                    Sign in
+                </Typography>
+                <form className={props.classes.form} onSubmit={loginAction} >
+                    <FormControl margin="normal" required fullWidth>
+                        <InputLabel htmlFor="email">Email Address</InputLabel>
+                        <Input id="email" name="email" autoComplete="email" autoFocus value={email} onChange={(e) => setEmail(e.target.value)} />
+                    </FormControl>
+                    <FormControl margin="normal" required fullWidth>
+                        <InputLabel htmlFor="password">Password</InputLabel>
+                        <Input name="password" type="password" id="password" autoComplete="current-password" value={password} onChange={(e) => setPassword(e.target.value)}/>
+                    </FormControl>
+                    <Button
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        color="primary"
+                        className={props.classes.submit}
+                    >
+                        Sign in
+                    </Button>
+                </form>
+            </Paper>
+        </main>
+    )
 }
 
-SignIn.propTypes = {
+Login.propTypes = {
     classes: PropTypes.object.isRequired,
 }
 
-export default withStyles(LoginStyles)(SignIn)
+export default withStyles(LoginStyles)(Login)

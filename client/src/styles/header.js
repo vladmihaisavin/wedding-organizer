@@ -7,9 +7,6 @@ export default theme => ({
   menuButton: {
     marginLeft: -theme.spacing(1),
   },
-  iconButtonAvatar: {
-    padding: 4,
-  },
   link: {
     textDecoration: 'none',
     color: lightColor,
