@@ -1,7 +1,7 @@
 import React from 'react'
 import ContentResource from '../structure/ContentResource'
 import { useLoadResource } from '../../helpers'
-import { resourceName, resourceUrl } from '../../static/userResource'
+import { resourceName, resourceUrl, resourceProperties } from '../../static/userResource'
 
 function Users(props) {
   const [data, loading] = useLoadResource(resourceUrl)
@@ -15,7 +15,7 @@ function Users(props) {
   }
 
   return (
-    <ContentResource customProps={{ labels, actions }} resources={{ data, loading }} />
+    <ContentResource customProps={{ labels, actions, resourceProperties }} resources={{ data, loading }} />
   )
 }
 

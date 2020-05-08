@@ -55,7 +55,7 @@ function Content(props) {
           resources.loading
           ? (<Preloader />)
           : resources.data.length > 0
-            ? (<ResourceTable />)
+            ? (<ResourceTable data={resources.data} resourceProperties={customProps.resourceProperties} />)
             : (<EmptyResourceTable resourceName={ customProps.labels.resourceName }/>)
         }
       </div>

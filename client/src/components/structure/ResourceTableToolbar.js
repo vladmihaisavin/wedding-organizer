@@ -24,9 +24,7 @@ const ResourceTableToolbar = (props) => {
           {numSelected} selected
         </Typography>
       ) : (
-        <Typography className={classes.title} variant='h6' id='tableTitle' component='div'>
-          Nutrition
-        </Typography>
+        <Typography className={classes.title} variant='h6' id='tableTitle' component='div' />
       )}
 
       {numSelected > 0 ? (
