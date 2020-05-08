@@ -41,7 +41,7 @@ function stableSort(array, comparator) {
 export default function ResourceTable(props) {
   const classes = useStyles()
   const [order, setOrder] = useState('asc')
-  const [orderBy, setOrderBy] = useState('id')
+  const [orderBy, setOrderBy] = useState(props.resourceProperties[0].id)
   const [selected, setSelected] = useState([])
   const [page, setPage] = useState(0)
   const [rowsPerPage, setRowsPerPage] = useState(5)

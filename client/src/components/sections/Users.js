@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import ContentResource from '../structure/ContentResource'
-import UserForm from './UserForm'
+import ResourceForm from '../structure/ResourceForm'
 import { useLoadResource } from '../../helpers'
 import { resourceName, resourceUrl, resourceProperties } from '../../static/userResource'
 
@@ -31,7 +31,7 @@ function Users() {
 
   return (
     displayUserForm
-    ? <UserForm customProps={{ labels, actions, resourceProperties }} />
+    ? <ResourceForm customProps={{ labels, actions, resourceProperties }} />
     : <ContentResource customProps={{ labels, actions, resourceProperties }} resources={{ data, loading }} />
   )
 }
