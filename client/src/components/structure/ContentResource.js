@@ -12,9 +12,12 @@ import { withStyles } from '@material-ui/core/styles'
 import SearchIcon from '@material-ui/icons/Search'
 import RefreshIcon from '@material-ui/icons/Refresh'
 import ContentResourceStyles from '../../styles/contentResource'
+import EmptyResourceTable from '../reusable/EmptyResourceTable'
+import Preloader from '../reusable/Preloader'
+import ResourceTable from '../structure/ResourceTable'
 
 function Content(props) {
-  const { classes, customProps } = props
+  const { classes, customProps, resources } = props
 
   return (
     <Paper className={classes.paper}>
@@ -47,8 +50,14 @@ function Content(props) {
           </Grid>
         </Toolbar>
       </AppBar>
-      <div className={classes.contentWrapper}>
-        <customProps.resourceTable resourceName={ customProps.labels.resourceName }/>
+      <div className={resources.loading ? classes.contentWrapper : classes.tableContentWrapper}>
+        {
+          resources.loading
+          ? (<Preloader />)
+          : resources.data.length > 0
+            ? (<ResourceTable />)
+            : (<EmptyResourceTable resourceName={ customProps.labels.resourceName }/>)
+        }
       </div>
     </Paper>
   )

@@ -1,9 +1,9 @@
 import React from 'react'
-import EmptyResourceTable from '../reusable/EmptyResourceTable'
-import Content from '../structure/ContentResource'
-import { getUsers } from '../../services/users'
+import ContentResource from '../structure/ContentResource'
+import { useLoadResource } from '../../helpers'
 
 function Users(props) {
+  const [data, loading] = useLoadResource('users')
   const labels = {
     addButton: 'Add user',
     searchText: 'Search...',
@@ -12,10 +12,9 @@ function Users(props) {
   const actions = {
     reload: () => console.log('Refreshing users...')
   }
-  const users = getUsers()
-  const resourceTable = users.length > 0 ? '' : EmptyResourceTable
+
   return (
-    <Content customProps={{ labels, actions, resourceTable }} />
+    <ContentResource customProps={{ labels, actions }} resources={{ data, loading }} />
   )
 }
 

@@ -19,4 +19,7 @@ export default theme => ({
   contentWrapper: {
     margin: '40px 16px',
   },
+  tableContentWrapper: {
+    margin: '0 0 -20px 0',
+  }
 })

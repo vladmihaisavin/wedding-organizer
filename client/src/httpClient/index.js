@@ -1,9 +1,10 @@
 import axios from 'axios'
+import Cookies from 'js-cookie'
 
 const getOptions = () => {
     const options = {
         baseURL: '/api',
-        timeout: 1000,
+        timeout: 5000,
         headers: {
             'Accepts': 'application/json',
             'Content-Type': 'application/json',
@@ -12,9 +13,9 @@ const getOptions = () => {
             return status < 500
         }
     }
-    const token = localStorage.getItem('token')
+    const token = Cookies.get('AUTH_TOKEN')
     if (token) {
-        options.headers['Authorization'] = `Bearer ${ localStorage.getItem('token') }`
+        options.headers['Authorization'] = `Bearer ${ token }`
     }
     return options
 }

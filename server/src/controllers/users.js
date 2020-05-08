@@ -8,7 +8,7 @@ module.exports = (userRepository) => {
   app.get('/', async (req, res) => {
     try {
       const users = await userRepository.list()
-      return res.status(200).json({ users })
+      return res.status(200).json(users)
     } catch (err) {
       return res.sendStatus(500)
     }
@@ -26,7 +26,7 @@ module.exports = (userRepository) => {
   app.get('/:id', async (req, res) => {
     try {
       const user = await userRepository.getById(req.params.id)
-      return res.status(200).json({ user })
+      return res.status(200).json(user)
     } catch (err) {
       return res.sendStatus(500)
     }
