@@ -5,7 +5,7 @@ import Typography from '@material-ui/core/Typography'
 function EmptyResourceTable(props) {
   return (
     <Typography color="textSecondary" align="center">
-      No {props.resourceName} for this project yet.
+      No {props.resourceName}s for this project yet.
     </Typography>
   )
 }

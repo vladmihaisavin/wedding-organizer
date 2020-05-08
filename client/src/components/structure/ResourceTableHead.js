@@ -6,7 +6,7 @@ import TableCell from '@material-ui/core/TableCell'
 import TableSortLabel from '@material-ui/core/TableSortLabel'
 import Checkbox from '@material-ui/core/Checkbox'
 
-const headCells = [
+const defaultHeadCells = [
   { id: 'name', numeric: false, disablePadding: true, label: 'Dessert (100g serving)' },
   { id: 'calories', numeric: true, disablePadding: false, label: 'Calories' },
   { id: 'fat', numeric: true, disablePadding: false, label: 'Fat (g)' },
@@ -18,6 +18,10 @@ function ResourceTableHead(props) {
   const { classes, onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } = props
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property)
+  }
+  let headCells = defaultHeadCells
+  if (props.resourceProperties) {
+    headCells = props.resourceProperties
   }
 
   return (

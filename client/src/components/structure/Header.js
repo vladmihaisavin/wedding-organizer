@@ -10,12 +10,8 @@ import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
 import { withStyles } from '@material-ui/core/styles'
 import HeaderStyles from '../../styles/header'
-import { ucFirst } from '../../helpers'
 import AvatarMenu from './AvatarMenu'
-
-function getPageName() {
-  return ucFirst(window.location.pathname.split('/')[1])
-}
+import { getPageName } from '../../helpers'
 
 function Header(props) {
   const { classes, onDrawerToggle } = props
