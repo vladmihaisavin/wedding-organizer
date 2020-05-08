@@ -140,8 +140,8 @@ export default function ResourceTable(props) {
                       </TableCell>
                       {
                         props.resourceProperties.map((property, idx) => idx
-                          ? <TableCell align='left'>{row[property.id]}</TableCell>
-                          : <TableCell component='th' id={labelId} scope='row' padding='none'>{row[property.id]}</TableCell>
+                          ? <TableCell align='left' key={`row.name${idx}`}>{row[property.id]}</TableCell>
+                          : <TableCell component='th' id={labelId} scope='row' padding='none' key={`row.name${idx}`}>{row[property.id]}</TableCell>
                         )
                       }
                     </TableRow>

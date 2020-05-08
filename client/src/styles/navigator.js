@@ -34,11 +34,6 @@ export default theme => ({
     minWidth: 'auto',
     marginRight: theme.spacing(2),
   },
-  itemLink: {
-    '&:hover': {
-      textDecoration: 'none'
-    }
-  },
   divider: {
     marginTop: theme.spacing(2),
   },

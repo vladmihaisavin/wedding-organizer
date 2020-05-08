@@ -4,7 +4,7 @@ import clsx from 'clsx'
 import { withStyles } from '@material-ui/core/styles'
 import Divider from '@material-ui/core/Divider'
 import Drawer from '@material-ui/core/Drawer'
-import Link from '@material-ui/core/Link'
+import { Link } from 'react-router-dom'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
@@ -28,12 +28,12 @@ function Navigator(props) {
   return (
     <Drawer variant="permanent" {...other}>
       <List disablePadding>
-        <Link href='/' className={classes.itemLink}>
+        <Link to='/' style={{ textDecoration: 'none' }}>
           <ListItem className={clsx(classes.firebase, classes.item, classes.itemCategory)}>
             Project Name
           </ListItem>
         </Link>
-        <Link href='/' className={classes.itemLink}>
+        <Link to='/' style={{ textDecoration: 'none' }}>
           <ListItem className={clsx(classes.item, classes.itemCategory)}>
             <ListItemIcon className={classes.itemIcon}>
               <HomeIcon />
@@ -59,7 +59,7 @@ function Navigator(props) {
               </ListItemText>
             </ListItem>
             {children.map(({ id: childId, icon, active }) => (
-              <Link href='/users' className={classes.itemLink} key={childId}>
+              <Link to='/users' style={{ textDecoration: 'none' }} key={childId}>
                 <ListItem
                   button
                   className={clsx(classes.item, active && classes.itemActiveItem)}
