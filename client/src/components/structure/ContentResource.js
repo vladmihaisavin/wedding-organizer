@@ -38,7 +38,7 @@ function Content(props) {
               />
             </Grid>
             <Grid item>
-              <Button variant="contained" color="primary" className={classes.addButton}>
+              <Button variant="contained" color="primary" className={classes.addButton} onClick={customProps.actions.addButtonClicked}>
                 { customProps.labels.addButton }
               </Button>
               <Tooltip title="Reload" onClick={customProps.actions.reload}>
