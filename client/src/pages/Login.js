@@ -14,7 +14,6 @@ import withStyles from '@material-ui/core/styles/withStyles'
 import CustomizedSnackbar from '../components/reusable/Snackbar'
 import { hasAuthToken, login } from '../services/auth'
 import LoginStyles from '../styles/login'
-import Cookies from 'js-cookie'
 
 function Login(props) {
     const [success, signalSuccess] = React.useState(false)
@@ -26,14 +25,12 @@ function Login(props) {
         e.preventDefault()
         login({ email, password })
         .then((response) => {
-            console.log(response)
             if (response.status === 403) {
                 setError({
                     active: true,
                     message: 'Email and password do not match.'
                 })
             } else {
-                Cookies.set('AUTH_TOKEN', response.data.token, { expires: 1/24 })
                 signalSuccess(true)
             }
         })

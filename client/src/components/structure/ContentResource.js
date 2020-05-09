@@ -33,7 +33,7 @@ function Content(props) {
                 placeholder={customProps.labels.searchText}
                 InputProps={{
                   disableUnderline: true,
-                  className: classes.searchInput,
+                  className: classes.searchInput
                 }}
               />
             </Grid>
