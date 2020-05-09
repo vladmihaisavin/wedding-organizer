@@ -33,7 +33,7 @@ function ResourceForm(props) {
           <Button color="secondary" onClick={customProps.actions.cancelButtonClicked}>Cancel</Button>
         </Grid>
         <Grid item>
-         <Button variant="contained" color="primary" onClick={customProps.actions.cancelButtonClicked}>Save {customProps.resourceName}</Button>
+         <Button variant="contained" color="primary" onClick={customProps.actions.saveButtonClicked}>Save {customProps.resourceName}</Button>
         </Grid>
       </Grid>
     </Paper>

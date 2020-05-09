@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import ContentResource from '../structure/ContentResource'
 import ResourceForm from '../structure/ResourceForm'
-import { useLoadResource } from '../../helpers'
+import { useLoadResource } from '../../services/loadResourceHook'
 import { resourceName, resourceUrl, resourceProperties } from '../../static/userResource'
+import { createUser } from '../../services/users'
 
 const labels = {
   addButton: `Add ${resourceName}`,
@@ -18,8 +19,10 @@ function Users() {
   const actions = {
     reload: () => setShouldLoad(true),
     addButtonClicked: () => setDisplayUserForm(true),
-    saveButtonClicked: () => {
+    saveButtonClicked: async () => {
+      await createUser({})
       setDisplayUserForm(false)
+      setShouldLoad(true)
     },
     cancelButtonClicked: () => setDisplayUserForm(false)
   }
