@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import httpClient from './httpClient'
+import httpClient from './services/httpClient'
 
 export function ucFirst(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
