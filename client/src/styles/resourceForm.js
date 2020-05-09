@@ -1,8 +1,17 @@
 export default (theme) => ({
-  root: {
-    '& .MuiTextField-root': {
-      margin: theme.spacing(1),
-      width: '25ch'
-    }
+  paper: {
+    textAlign: 'center',
+    maxWidth: 936,
+    margin: 'auto',
+    overflow: 'hidden'
+  },
+  grid: {
+    maxWidth: 900,
+    margin: 'auto',
+    overflow: 'hidden',
+  },
+  actions: {
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1)
   }
 })

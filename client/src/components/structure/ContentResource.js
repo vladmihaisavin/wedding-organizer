@@ -12,7 +12,7 @@ import { withStyles } from '@material-ui/core/styles'
 import SearchIcon from '@material-ui/icons/Search'
 import RefreshIcon from '@material-ui/icons/Refresh'
 import ContentResourceStyles from '../../styles/contentResource'
-import EmptyResourceTable from '../reusable/EmptyResourceTable'
+import EmptyResourceTable from '../structure/EmptyResourceTable'
 import Preloader from '../reusable/Preloader'
 import ResourceTable from '../structure/ResourceTable'
 

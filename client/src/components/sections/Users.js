@@ -31,7 +31,7 @@ function Users() {
 
   return (
     displayUserForm
-    ? <ResourceForm customProps={{ labels, actions, resourceProperties }} />
+    ? <ResourceForm customProps={{ labels, actions, resourceProperties, resourceName }} />
     : <ContentResource customProps={{ labels, actions, resourceProperties }} resources={{ data, loading }} />
   )
 }
