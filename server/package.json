@@ -4,7 +4,7 @@
   "author": "Vlad-Mihai Savin",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon ./src/index.js",
+    "start": "nodemon ./index.js",
     "test": "mocha tests/server"
   },
   "dependencies": {
