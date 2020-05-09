@@ -34,6 +34,9 @@ module.exports = ({ config, mysqlClient }) => {
   })
   app.use((err, req, res, next) => {
     console.error('Internal server error', err)
+    if(err.status) {
+      res.status(err.status).json({description: err.errors}).end()
+    }
     res.sendStatus(500)
   })
 
