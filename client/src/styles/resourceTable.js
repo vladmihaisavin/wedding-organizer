@@ -1,6 +1,4 @@
-import { makeStyles } from '@material-ui/core/styles'
-
-export default makeStyles((theme) => ({
+export default theme => ({
   root: {
     width: '100%',
   },
@@ -22,4 +20,4 @@ export default makeStyles((theme) => ({
     top: 20,
     width: 1,
   },
-}))
+})

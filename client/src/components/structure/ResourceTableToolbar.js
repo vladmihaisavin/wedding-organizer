@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { withStyles } from '@material-ui/core/styles'
 import clsx from 'clsx'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
@@ -7,11 +8,10 @@ import IconButton from '@material-ui/core/IconButton'
 import Tooltip from '@material-ui/core/Tooltip'
 import DeleteIcon from '@material-ui/icons/Delete'
 import FilterListIcon from '@material-ui/icons/FilterList'
-import useToolbarStyles from '../../styles/resourceTableToolbar'
+import ResourceTableToolbarStyles from '../../styles/resourceTableToolbar'
 
 const ResourceTableToolbar = (props) => {
-  const classes = useToolbarStyles()
-  const { numSelected } = props
+  const { numSelected, classes } = props
 
   return (
     <Toolbar
@@ -45,7 +45,8 @@ const ResourceTableToolbar = (props) => {
 }
 
 ResourceTableToolbar.propTypes = {
-  numSelected: PropTypes.number.isRequired,
+  classes: PropTypes.object.isRequired,
+  numSelected: PropTypes.number.isRequired
 }
 
-export default ResourceTableToolbar
+export default withStyles(ResourceTableToolbarStyles)(ResourceTableToolbar)

@@ -1,21 +1,13 @@
 import React from 'react'
+import PropTypes from 'prop-types'
+import { withStyles } from '@material-ui/core/styles'
 import Paper from '@material-ui/core/Paper'
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
-import { makeStyles } from '@material-ui/core/styles'
+import ResourceFormStyles from '../../styles/resourceForm'
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    '& .MuiTextField-root': {
-      margin: theme.spacing(1),
-      width: '25ch',
-    },
-  },
-}))
-
-function UserForm(props) {
-  const classes = useStyles()
-  const { customProps } = props
+function ResourceForm(props) {
+  const { customProps, classes } = props
   return (
     <Paper>
       <form className={classes.root} noValidate autoComplete="off">
@@ -36,4 +28,8 @@ function UserForm(props) {
   )
 }
 
-export default UserForm
+ResourceForm.propTypes = {
+  classes: PropTypes.object.isRequired,
+}
+
+export default withStyles(ResourceFormStyles)(ResourceForm)

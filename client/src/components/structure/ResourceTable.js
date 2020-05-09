@@ -1,4 +1,7 @@
 import React, { useState } from 'react'
+import PropTypes from 'prop-types'
+import { withStyles } from '@material-ui/core/styles'
+import ResourceTableStyles from '../../styles/resourceTable'
 import Table from '@material-ui/core/Table'
 import TableBody from '@material-ui/core/TableBody'
 import TableCell from '@material-ui/core/TableCell'
@@ -9,7 +12,6 @@ import Paper from '@material-ui/core/Paper'
 import Checkbox from '@material-ui/core/Checkbox'
 import ResourceTableToolbar from './ResourceTableToolbar'
 import ResourceTableHead from './ResourceTableHead'
-import useStyles from '../../styles/resourceTable'
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -38,8 +40,8 @@ function stableSort(array, comparator) {
 }
 
 
-export default function ResourceTable(props) {
-  const classes = useStyles()
+function ResourceTable(props) {
+  const { classes } = props
   const [order, setOrder] = useState('asc')
   const [orderBy, setOrderBy] = useState(props.resourceProperties[0].id)
   const [selected, setSelected] = useState([])
@@ -168,3 +170,9 @@ export default function ResourceTable(props) {
     </div>
   )
 }
+
+ResourceTable.propTypes = {
+  classes: PropTypes.object.isRequired,
+}
+
+export default withStyles(ResourceTableStyles)(ResourceTable)
