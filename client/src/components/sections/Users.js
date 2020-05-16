@@ -20,7 +20,11 @@ function Users() {
     reload: () => setShouldLoad(true),
     addButtonClicked: () => setDisplayUserForm(true),
     saveButtonClicked: async () => {
-      await createUser({})
+      await createUser({
+        name: 'Vlad',
+        email: 'vlad@gmail.com',
+        password: 'asd123'
+      })
       setDisplayUserForm(false)
       setShouldLoad(true)
     },

@@ -16,6 +16,7 @@ module.exports = {
       'name',
       'email',
       'type',
+      'password',
       'createdAt',
       'updatedAt'
     ]
