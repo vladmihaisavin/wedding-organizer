@@ -21,6 +21,7 @@ ReactDOM.render(
             <Route path="/login" component={Login} />
             <ProtectedRoute exact path="/dashboard" component={Main} content={Dashboard} />
             <ProtectedRoute exact path="/users" component={Main} content={Users} />
+            <ProtectedRoute exact path="/users/:userId" component={Main} content={Users} />
             <Route component={NotFound} />
         </Switch>
     </Router>,

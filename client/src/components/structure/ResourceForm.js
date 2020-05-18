@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 import Paper from '@material-ui/core/Paper'
@@ -7,8 +8,18 @@ import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
 import ResourceFormStyles from '../../styles/resourceForm'
 
+function generateDefaultResourceObject(resourceFields, resourceObject = {}) {
+  const defaultResourceObject = {}
+  for (const field of resourceFields) {
+    defaultResourceObject[field] = resourceObject[field]
+  }
+  return defaultResourceObject
+}
+
 function ResourceForm(props) {
-  const { customProps, classes } = props
+  const { customProps, classes, oldResource } = props
+  const [resource, setResource] = useState(generateDefaultResourceObject(customProps.resourceFields, oldResource))
+
   return (
     <Paper className={classes.paper}>
       <Grid className={classes.grid} container alignItems="center">
@@ -17,6 +28,7 @@ function ResourceForm(props) {
             customProps.resourceProperties.map(property => (
               <TextField
                 id={property.id}
+                value={property.content !== 'hidden' ? resource[property.id] : ''}
                 label={property.label}
                 variant="outlined"
                 className={classes.textField}

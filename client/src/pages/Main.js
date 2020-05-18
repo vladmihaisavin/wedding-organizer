@@ -1,4 +1,5 @@
 import React from 'react'
+import { useParams } from "react-router-dom"
 import PropTypes from 'prop-types'
 import { ThemeProvider, withStyles } from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
@@ -37,7 +38,7 @@ function Main(props) {
         <div className={classes.app}>
           <Header onDrawerToggle={handleDrawerToggle} />
           <main className={classes.main}>
-            <props.content />
+            <props.content matchedParams={props.match.params} />
           </main>
           <footer className={classes.footer}>
             <Copyright />
