@@ -12,9 +12,9 @@ import { withStyles } from '@material-ui/core/styles'
 import SearchIcon from '@material-ui/icons/Search'
 import RefreshIcon from '@material-ui/icons/Refresh'
 import ContentResourceStyles from '../../styles/contentResource'
-import EmptyResourceTable from '../structure/EmptyResourceTable'
-import Preloader from '../reusable/Preloader'
-import ResourceTable from '../structure/ResourceTable'
+import EmptyResourceTable from './EmptyResourceTable.jsx'
+import Preloader from '../reusable/Preloader.jsx'
+import ResourceTable from './ResourceTable.jsx'
 
 function Content(props) {
   const { classes, customProps, resources } = props

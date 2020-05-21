@@ -1,6 +1,6 @@
 import React from 'react'
 import Typography from '@material-ui/core/Typography'
-import ContentSimple from '../structure/ContentSimple'
+import ContentSimple from '../structure/ContentSimple.jsx'
 
 function Content() {
   return (

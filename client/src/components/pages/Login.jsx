@@ -11,9 +11,9 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
 import Paper from '@material-ui/core/Paper'
 import Typography from '@material-ui/core/Typography'
 import withStyles from '@material-ui/core/styles/withStyles'
-import CustomizedSnackbar from '../components/reusable/Snackbar'
-import { hasAuthToken, login } from '../services/auth'
-import LoginStyles from '../styles/login'
+import CustomizedSnackbar from '../reusable/Snackbar.jsx'
+import { hasAuthToken, login } from '../../services/auth'
+import LoginStyles from '../../styles/login'
 
 function Login(props) {
     const [success, signalSuccess] = React.useState(false)

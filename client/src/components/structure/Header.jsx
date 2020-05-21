@@ -10,7 +10,7 @@ import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
 import { withStyles } from '@material-ui/core/styles'
 import HeaderStyles from '../../styles/header'
-import AvatarMenu from './AvatarMenu'
+import AvatarMenu from './AvatarMenu.jsx'
 import { getPageName } from '../../helpers'
 
 function Header(props) {

@@ -1,14 +1,13 @@
 import React from 'react'
-import { useParams } from "react-router-dom"
 import PropTypes from 'prop-types'
 import { ThemeProvider, withStyles } from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import Hidden from '@material-ui/core/Hidden'
-import Copyright from '../components/structure/Copyright'
-import Header from '../components/structure/Header'
-import Navigator from '../components/structure/Navigator'
-import theme from '../styles/theme'
-import { MainStyles, drawerWidth } from '../styles/main'
+import Copyright from '../structure/Copyright.jsx'
+import Header from '../structure/Header.jsx'
+import Navigator from '../structure/Navigator.jsx'
+import theme from '../../styles/theme'
+import { MainStyles, drawerWidth } from '../../styles/main'
 
 function Main(props) {
   const { classes } = props
@@ -17,6 +16,9 @@ function Main(props) {
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen)
   }
+
+  const newProps = { ...props }
+  delete newProps.content
 
   return (
     <ThemeProvider theme={theme}>
@@ -38,7 +40,7 @@ function Main(props) {
         <div className={classes.app}>
           <Header onDrawerToggle={handleDrawerToggle} />
           <main className={classes.main}>
-            <props.content matchedParams={props.match.params} />
+            <props.content { ...newProps } />
           </main>
           <footer className={classes.footer}>
             <Copyright />

@@ -10,8 +10,8 @@ import TablePagination from '@material-ui/core/TablePagination'
 import TableRow from '@material-ui/core/TableRow'
 import Paper from '@material-ui/core/Paper'
 import Checkbox from '@material-ui/core/Checkbox'
-import ResourceTableToolbar from './ResourceTableToolbar'
-import ResourceTableHead from './ResourceTableHead'
+import ResourceTableToolbar from './ResourceTableToolbar.jsx'
+import ResourceTableHead from './ResourceTableHead.jsx'
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -121,17 +121,17 @@ function ResourceTable(props) {
               {stableSort(props.data, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
-                  const isItemSelected = isSelected(row.name)
+                  const isItemSelected = isSelected(row.id)
                   const labelId = `enhanced-table-checkbox-${index}`
 
                   return (
                     <TableRow
                       hover
-                      onClick={(event) => handleClick(event, row.name)}
+                      onClick={(event) => handleClick(event, row.id)}
                       role='checkbox'
                       aria-checked={isItemSelected}
                       tabIndex={-1}
-                      key={row.name}
+                      key={row.id}
                       selected={isItemSelected}
                     >
                       <TableCell padding='checkbox'>
@@ -142,8 +142,8 @@ function ResourceTable(props) {
                       </TableCell>
                       {
                         props.resourceProperties.map((property, idx) => idx
-                          ? <TableCell align='left' key={`row.name${idx}`}>{row[property.id]}</TableCell>
-                          : <TableCell component='th' id={labelId} scope='row' padding='none' key={`row.name${idx}`}>{row[property.id]}</TableCell>
+                          ? <TableCell align='left' key={`row${idx}`}>{row[property.id]}</TableCell>
+                          : <TableCell component='th' id={labelId} scope='row' padding='none' key={`row${idx}`}>{row[property.id]}</TableCell>
                         )
                       }
                     </TableRow>

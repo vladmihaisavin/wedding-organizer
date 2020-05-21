@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import ContentResource from '../structure/ContentResource'
-import ResourceForm from '../structure/ResourceForm'
+import { withRouter } from 'react-router-dom'
+import ContentResource from '../structure/ContentResource.jsx'
+import ResourceForm from '../structure/ResourceForm.jsx'
 import { useLoadResource } from '../../services/loadResourceHook'
-
 import { resourceName, resourceUrl, resourceProperties, resourceFields } from '../../static/userResource'
 import { createUser } from '../../services/users'
 
@@ -13,6 +13,7 @@ const labels = {
 }
 
 function Users(props) {
+  console.log(props)
   // Used for component management
   const [shouldLoad, setShouldLoad] = useState(true)
   const [displayResourceForm, setDisplayResourceForm] = useState(false)
@@ -21,7 +22,7 @@ function Users(props) {
   const [data, loading] = useLoadResource(resourceUrl, shouldLoad)
 
   // Used for updating the resource
-  const [resourceId, setResourceId] = useState(props.matchedParams.userId)
+  const [resourceId, setResourceId] = useState(props.match.params.userId)
 
   const actions = {
     reload: () => setShouldLoad(true),
@@ -56,4 +57,4 @@ function Users(props) {
   )
 }
 
-export default Users
+export default withRouter(Users)

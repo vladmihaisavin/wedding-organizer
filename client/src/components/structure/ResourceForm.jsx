@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 import Paper from '@material-ui/core/Paper'
@@ -20,23 +19,31 @@ function ResourceForm(props) {
   const { customProps, classes, oldResource } = props
   const [resource, setResource] = useState(generateDefaultResourceObject(customProps.resourceFields, oldResource))
 
+  console.log(resource)
+  
   return (
     <Paper className={classes.paper}>
       <Grid className={classes.grid} container alignItems="center">
         <Grid item xs={12}>
           {
-            customProps.resourceProperties.map(property => (
-              <TextField
-                id={property.id}
-                value={property.content !== 'hidden' ? resource[property.id] : ''}
-                label={property.label}
-                variant="outlined"
-                className={classes.textField}
-                size={"small"}
-                fullWidth
-                margin="normal"
-              />
-            ))
+            customProps.resourceProperties.map(property => {
+              console.log(property)
+              return (
+                <TextField
+                  key={property.id}
+                  id={property.id}
+                  value={resource[property.id]}
+                  type={property.type || 'text'}
+                  label={property.label}
+                  variant="outlined"
+                  className={classes.textField}
+                  size={"small"}
+                  fullWidth
+                  margin="normal"
+                  onChange={(e) => setResource({ ...resource, [property.id]: e.target.value })}
+                />
+              )
+            })
           }
         </Grid>
       </Grid>
