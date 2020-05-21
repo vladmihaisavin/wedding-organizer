@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import httpClient from './httpClient'
 
-export function useLoadResource(url, shouldLoad) {
+export function useLoadResource(url, shouldLoad = true) {
   const [data, setData] = useState([])
   const [loading, setLoading] = useState(true)
 

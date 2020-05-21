@@ -13,5 +13,8 @@ export default (theme) => ({
   actions: {
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(1)
-  }
+  },
+  preloaderWrapper: {
+    margin: '40px 16px',
+  },
 })

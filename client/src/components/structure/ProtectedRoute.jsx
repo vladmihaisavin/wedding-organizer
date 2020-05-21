@@ -7,7 +7,7 @@ const ProtectedRoute = ({component: Component, ...rest}) => {
     <Route
       {...rest}
       render={(props) => hasAuthToken()
-        ? <Component {...props} />
+        ? <Component {...props} action={rest.action} />
         : <Redirect to={{pathname: '/login', state: {from: props.location}}} />}
     />
   )

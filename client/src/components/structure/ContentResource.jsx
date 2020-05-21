@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
@@ -30,7 +31,7 @@ function Content(props) {
             <Grid item xs>
               <TextField
                 fullWidth
-                placeholder={customProps.labels.searchText}
+                placeholder='Search...'
                 InputProps={{
                   disableUnderline: true,
                   className: classes.searchInput
@@ -38,9 +39,11 @@ function Content(props) {
               />
             </Grid>
             <Grid item>
-              <Button variant="contained" color="primary" className={classes.addButton} onClick={customProps.actions.addButtonClicked}>
-                { customProps.labels.addButton }
-              </Button>
+              <Link to={`/${customProps.resourceUrl}/new`} style={{ textDecoration: 'none' }}>
+                <Button variant="contained" color="primary" className={classes.addButton}>
+                  { `Add ${customProps.resourceName}` }
+                </Button>
+              </Link>
               <Tooltip title="Reload" onClick={customProps.actions.reload}>
                 <IconButton>
                   <RefreshIcon className={classes.block} color="inherit" />
@@ -55,8 +58,8 @@ function Content(props) {
           resources.loading
           ? (<Preloader />)
           : resources.data.length > 0
-            ? (<ResourceTable data={resources.data} resourceProperties={customProps.resourceProperties} />)
-            : (<EmptyResourceTable resourceName={ customProps.labels.resourceName }/>)
+            ? (<ResourceTable data={resources.data} listProperties={customProps.listProperties} resourceUrl={customProps.resourceUrl} />)
+            : (<EmptyResourceTable resourceName={ customProps.resourceName }/>)
         }
       </div>
     </Paper>

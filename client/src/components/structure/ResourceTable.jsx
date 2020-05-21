@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 import ResourceTableStyles from '../../styles/resourceTable'
@@ -10,8 +11,10 @@ import TablePagination from '@material-ui/core/TablePagination'
 import TableRow from '@material-ui/core/TableRow'
 import Paper from '@material-ui/core/Paper'
 import Checkbox from '@material-ui/core/Checkbox'
+import EditIcon from '@material-ui/icons/Edit';
 import ResourceTableToolbar from './ResourceTableToolbar.jsx'
 import ResourceTableHead from './ResourceTableHead.jsx'
+import moment from 'moment'
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -43,7 +46,7 @@ function stableSort(array, comparator) {
 function ResourceTable(props) {
   const { classes } = props
   const [order, setOrder] = useState('asc')
-  const [orderBy, setOrderBy] = useState(props.resourceProperties[0].id)
+  const [orderBy, setOrderBy] = useState(props.listProperties[0].id)
   const [selected, setSelected] = useState([])
   const [page, setPage] = useState(0)
   const [rowsPerPage, setRowsPerPage] = useState(5)
@@ -56,7 +59,7 @@ function ResourceTable(props) {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = props.data.map((n) => n.name)
+      const newSelecteds = props.data.map((item) => item.id)
       setSelected(newSelecteds)
       return
     }
@@ -96,6 +99,13 @@ function ResourceTable(props) {
 
   const emptyRows = rowsPerPage - Math.min(rowsPerPage, props.data.length - page * rowsPerPage)
 
+  const formatData = (row, property) => {
+    if (property.type === 'datetime-local') {
+      return moment(row[property.id]).format('MMMM Do YYYY, h:mm:ss a')
+    }
+    return row[property.id]
+  }
+
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
@@ -115,7 +125,7 @@ function ResourceTable(props) {
               onSelectAllClick={handleSelectAllClick}
               onRequestSort={handleRequestSort}
               rowCount={props.data.length}
-              resourceProperties={props.resourceProperties}
+              listProperties={props.listProperties}
             />
             <TableBody>
               {stableSort(props.data, getComparator(order, orderBy))
@@ -141,11 +151,18 @@ function ResourceTable(props) {
                         />
                       </TableCell>
                       {
-                        props.resourceProperties.map((property, idx) => idx
-                          ? <TableCell align='left' key={`row${idx}`}>{row[property.id]}</TableCell>
-                          : <TableCell component='th' id={labelId} scope='row' padding='none' key={`row${idx}`}>{row[property.id]}</TableCell>
+                        props.listProperties
+                          .filter((item) => item.type !== 'password')
+                          .map((property, idx) => idx
+                            ? <TableCell align='left' key={`row${idx}`}>{formatData(row, property)}</TableCell>
+                            : <TableCell component='th' id={labelId} scope='row' padding='none' key={`row${idx}`}>{formatData(row, property)}</TableCell>
                         )
                       }
+                      <TableCell padding='none' key={`edit${row.id}`} align='center'>
+                        <Link to={`${props.resourceUrl}/edit/${row.id}`} style={{ textDecoration: 'none' }}>
+                          <EditIcon />
+                        </Link>
+                      </TableCell>
                     </TableRow>
                   )
                 })}

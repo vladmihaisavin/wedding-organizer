@@ -6,22 +6,10 @@ import TableCell from '@material-ui/core/TableCell'
 import TableSortLabel from '@material-ui/core/TableSortLabel'
 import Checkbox from '@material-ui/core/Checkbox'
 
-const defaultHeadCells = [
-  { id: 'name', numeric: false, disablePadding: true, label: 'Dessert (100g serving)' },
-  { id: 'calories', numeric: true, disablePadding: false, label: 'Calories' },
-  { id: 'fat', numeric: true, disablePadding: false, label: 'Fat (g)' },
-  { id: 'carbs', numeric: true, disablePadding: false, label: 'Carbs (g)' },
-  { id: 'protein', numeric: true, disablePadding: false, label: 'Protein (g)' },
-]
-
 function ResourceTableHead(props) {
   const { classes, onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } = props
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property)
-  }
-  let headCells = defaultHeadCells
-  if (props.resourceProperties) {
-    headCells = props.resourceProperties
   }
 
   return (
@@ -35,7 +23,9 @@ function ResourceTableHead(props) {
             inputProps={{ 'aria-label': 'select all desserts' }}
           />
         </TableCell>
-        {headCells.map((headCell) => (
+        {props.listProperties
+        .filter((item) => item.type !== 'password')
+        .map((headCell) => (
           <TableCell
             key={headCell.id}
             align={headCell.numeric ? 'right' : 'left'}
@@ -56,6 +46,12 @@ function ResourceTableHead(props) {
             </TableSortLabel>
           </TableCell>
         ))}
+        <TableCell
+          key='actions'
+          align='center'
+          padding='default'
+        >
+        </TableCell>
       </TableRow>
     </TableHead>
   )

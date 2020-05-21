@@ -57,6 +57,9 @@ module.exports = (mysqlClient) => {
 
   const update = async (id, body) => {
     try {
+      if (body.password) {
+        body.password = await hashPassword(body.password)
+      }
       body.updatedAt = getCurrentTimestamp()
       return prepareResults(await mysqlClient.update(
         userModel.tableName,
