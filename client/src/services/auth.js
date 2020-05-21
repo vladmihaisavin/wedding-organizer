@@ -10,8 +10,10 @@ export async function login(body) {
     email: body.email,
     password: body.password
   }).then((response) => {
-    Cookies.set('AUTH_TOKEN', response.data.token, { expires: 1/24 })
-    httpClient.defaults.headers.common['Authorization'] = `Bearer ${ response.data.token }`
+    if (response.data.token) {
+      Cookies.set('AUTH_TOKEN', response.data.token, { expires: 1/24 })
+      httpClient.defaults.headers.common['Authorization'] = `Bearer ${ response.data.token }`
+    }
     return response
   })
 }
