@@ -5,10 +5,11 @@ import { useLoadResource } from '../../services/loadResourceHook'
 import { resourceName, resourceUrl, listProperties } from '../../static/userResource.json'
 import { deleteResource } from '../../services/users'
 
-function Users(props) {
+function Users() {
   const [shouldLoad, setShouldLoad] = useState(true)
-  const [preloader, setPreloader] = useState(true)
   const [data, loading] = useLoadResource(resourceUrl, shouldLoad)
+  const [preloader, setPreloader] = useState(true)
+  const [resources, setResources] = useState([])
 
   const actions = {
     reload: () => setShouldLoad(true),
@@ -18,8 +19,15 @@ function Users(props) {
         await deleteResource(resourceId)
       }
       setShouldLoad(true)
+    },
+    search: (term, field) => {
+      setResources(data.filter((item) => item[field].split(term).length > 1))
     }
   }
+
+  useEffect(() => {
+    setResources(data)
+  }, [data])
 
   useEffect(() => {
     setPreloader(loading)
@@ -30,7 +38,7 @@ function Users(props) {
   }, [shouldLoad])
 
   return (
-    <ContentResource customProps={{ actions, listProperties, resourceName, resourceUrl }} resources={{ data, preloader }} />
+    <ContentResource customProps={{ actions, listProperties, resourceName, resourceUrl }} resources={resources} preloader={preloader} />
   )
 }
 

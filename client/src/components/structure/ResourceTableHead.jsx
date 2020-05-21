@@ -24,7 +24,6 @@ function ResourceTableHead(props) {
           />
         </TableCell>
         {props.listProperties
-        .filter((item) => item.type !== 'password')
         .map((headCell) => (
           <TableCell
             key={headCell.id}

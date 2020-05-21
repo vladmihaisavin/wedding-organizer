@@ -21,5 +21,9 @@ export default theme => ({
   },
   tableContentWrapper: {
     margin: '0 0 -20px 0',
-  }
+  },
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 120,
+  },
 })

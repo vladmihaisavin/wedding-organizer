@@ -152,7 +152,6 @@ function ResourceTable(props) {
                       </TableCell>
                       {
                         props.listProperties
-                          .filter((item) => item.type !== 'password')
                           .map((property, idx) => idx
                             ? <TableCell align='left' key={`row${idx}`}>{formatData(row, property)}</TableCell>
                             : <TableCell component='th' id={labelId} scope='row' padding='none' key={`row${idx}`}>{formatData(row, property)}</TableCell>
