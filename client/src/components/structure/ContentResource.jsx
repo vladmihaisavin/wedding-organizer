@@ -53,13 +53,24 @@ function Content(props) {
           </Grid>
         </Toolbar>
       </AppBar>
-      <div className={resources.loading ? classes.contentWrapper : classes.tableContentWrapper}>
+      <div className={resources.preloader ? classes.contentWrapper : classes.tableContentWrapper}>
         {
-          resources.loading
-          ? (<Preloader />)
+          resources.preloader
+          ? (
+            <Preloader />
+          )
           : resources.data.length > 0
-            ? (<ResourceTable data={resources.data} listProperties={customProps.listProperties} resourceUrl={customProps.resourceUrl} />)
-            : (<EmptyResourceTable resourceName={ customProps.resourceName }/>)
+            ? (
+              <ResourceTable 
+                data={resources.data}
+                listProperties={customProps.listProperties}
+                resourceUrl={customProps.resourceUrl}
+                delete={customProps.actions.delete}
+              />
+            )
+            : (
+              <EmptyResourceTable resourceName={ customProps.resourceName }/>
+            )
         }
       </div>
     </Paper>

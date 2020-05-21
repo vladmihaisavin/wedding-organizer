@@ -20,4 +20,7 @@ export default theme => ({
     top: 20,
     width: 1,
   },
+  actionIcon: {
+    color: '#009be5'
+  }
 })

@@ -1,13 +1,13 @@
 import httpClient from './httpClient'
 
-export async function createUser(body) {
+export async function createResource(body) {
   return httpClient.post('/users', body)
 }
 
-export async function updateUser(userId, body) {
+export async function updateResource(userId, body) {
   return httpClient.put(`/users/${userId}`, body)
 }
 
-export async function deleteUser(userId) {
+export async function deleteResource(userId) {
   return httpClient.delete(`/users/${userId}`)
 }

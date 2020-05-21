@@ -109,7 +109,7 @@ function ResourceTable(props) {
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
-        <ResourceTableToolbar numSelected={selected.length} />
+        <ResourceTableToolbar selectedIds={selected} delete={props.delete} />
         <TableContainer>
           <Table
             className={classes.table}
@@ -160,7 +160,7 @@ function ResourceTable(props) {
                       }
                       <TableCell padding='none' key={`edit${row.id}`} align='center'>
                         <Link to={`${props.resourceUrl}/edit/${row.id}`} style={{ textDecoration: 'none' }}>
-                          <EditIcon />
+                          <EditIcon className={classes.actionIcon} />
                         </Link>
                       </TableCell>
                     </TableRow>

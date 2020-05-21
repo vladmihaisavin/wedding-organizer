@@ -11,7 +11,8 @@ import FilterListIcon from '@material-ui/icons/FilterList'
 import ResourceTableToolbarStyles from '../../styles/resourceTableToolbar'
 
 const ResourceTableToolbar = (props) => {
-  const { numSelected, classes } = props
+  const { selectedIds, classes } = props
+  const numSelected = selectedIds.length
 
   return (
     <Toolbar
@@ -29,7 +30,7 @@ const ResourceTableToolbar = (props) => {
 
       {numSelected > 0 ? (
         <Tooltip title='Delete'>
-          <IconButton aria-label='delete'>
+          <IconButton aria-label='delete' onClick={() => props.delete(selectedIds)}>
             <DeleteIcon />
           </IconButton>
         </Tooltip>
@@ -46,7 +47,7 @@ const ResourceTableToolbar = (props) => {
 
 ResourceTableToolbar.propTypes = {
   classes: PropTypes.object.isRequired,
-  numSelected: PropTypes.number.isRequired
+  selectedIds: PropTypes.array.isRequired
 }
 
 export default withStyles(ResourceTableToolbarStyles)(ResourceTableToolbar)

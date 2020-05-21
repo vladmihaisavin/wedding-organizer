@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom'
 import ResourceForm from '../structure/ResourceForm.jsx'
 import { useLoadResource } from '../../services/loadResourceHook'
 import { resourceName, resourceUrl, formProperties, formFields } from '../../static/userResource.json'
-import { createUser, updateUser } from '../../services/users'
+import { createResource, updateResource } from '../../services/users'
 
 function UserForm(props) {
   const resourceId = props.match.params.userId
@@ -13,10 +13,10 @@ function UserForm(props) {
     saveButtonClicked: async (resourceBody) => {
       switch(props.action) {
         case 'create':
-          await createUser(resourceBody)
+          await createResource(resourceBody)
           break
         case 'update':
-          await updateUser(resourceId, resourceBody)
+          await updateResource(resourceId, resourceBody)
           break
         default:
           break
