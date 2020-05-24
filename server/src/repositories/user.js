@@ -1,4 +1,4 @@
-const userModel = require('../models/user')
+const userModel = require('../models/user.json')
 const { hashPassword } = require('../helpers/bcrypt')
 const { getCurrentTimestamp } = require('../helpers/moment')
 const { generateSimpleFilterObject, prepareResults } = require('../helpers/mysqlClient')
