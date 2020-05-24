@@ -1,5 +1,5 @@
 const createMysqlClient = require('mysql-node-client')
-const schemas = require('./schemas')
+const schemas = require('./schemas.json')
 const seeders = require('./seeders')
 
 const getSchemaTableNames = () => {
