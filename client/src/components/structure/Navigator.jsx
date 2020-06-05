@@ -17,7 +17,7 @@ const categories = [
   {
     id: 'Resources',
     children: [
-      { id: 'Users', icon: <PeopleIcon />, active: true }
+      { id: 'Users', icon: <PeopleIcon />, active: true, url: '/users' }
     ]
   }
 ]
@@ -58,8 +58,8 @@ function Navigator(props) {
                 {id}
               </ListItemText>
             </ListItem>
-            {children.map(({ id: childId, icon, active }) => (
-              <Link to='/users' style={{ textDecoration: 'none' }} key={childId}>
+            {children.map(({ id: childId, icon, active, url }) => (
+              <Link to={url} style={{ textDecoration: 'none' }} key={childId}>
                 <ListItem
                   button
                   className={clsx(classes.item, active && classes.itemActiveItem)}
