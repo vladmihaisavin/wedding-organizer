@@ -8,7 +8,17 @@ const generateSimpleFilterObject = (placeholders, values) => ({
 })
 
 const prepareResults = (response) => {
-  return JSON.parse(JSON.stringify(response.results))
+  const results = []
+  for (const result of JSON.parse(JSON.stringify(response.results))) {
+    if (result.createdAt) {
+      result.createdAt = moment(results.createdAt).format('YYYY-MM-DDTHH:mm')
+    }
+    if (result.updatedAt) {
+      result.updatedAt = moment(results.updatedAt).format('YYYY-MM-DDTHH:mm')
+    }
+    results.push(result)
+  }
+  return results
 }
 
 module.exports = {
