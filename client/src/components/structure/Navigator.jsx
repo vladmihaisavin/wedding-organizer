@@ -43,7 +43,7 @@ function Navigator(props) {
                 primary: classes.itemPrimary,
               }}
             >
-              Project Overview
+              Dashboard
             </ListItemText>
           </ListItem>
         </Link>
@@ -58,7 +58,7 @@ function Navigator(props) {
                 {id}
               </ListItemText>
             </ListItem>
-            {children.map(({ id: childId, icon, active, url }) => (
+            {children.map(({ id: childId, icon, active, url }) => children.length > 0 ? (
               <Link to={url} style={{ textDecoration: 'none' }} key={childId}>
                 <ListItem
                   button
@@ -74,7 +74,7 @@ function Navigator(props) {
                   </ListItemText>
                 </ListItem>
               </Link>
-            ))}
+            ) : '')}
             <Divider className={classes.divider} />
           </React.Fragment>
         ))}
