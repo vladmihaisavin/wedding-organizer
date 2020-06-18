@@ -60,5 +60,21 @@ module.exports = convict({
       default: 60 * 60,
       env: 'AUTH_EXPIRES_IN'
     }
+  },
+  swaggerDefinition: {
+    info: {
+      title: 'Project Name',
+      version: '0.1.0',
+      description: '',
+    },
+    basePath: '/',
+    securityDefinitions: {
+      bearerAuth: {
+        type: 'apiKey',
+        name: 'Authorization',
+        scheme: 'bearer',
+        in: 'header',
+      },
+    },
   }
 }).validate({ allowed: 'strict' })

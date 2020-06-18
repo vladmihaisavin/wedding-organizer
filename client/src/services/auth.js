@@ -6,7 +6,7 @@ export function hasAuthToken() {
 }
 
 export async function login(body) {
-  return httpClient.post('/accounts/login', {
+  return httpClient.post('/auth/login', {
     email: body.email,
     password: body.password
   }).then((response) => {

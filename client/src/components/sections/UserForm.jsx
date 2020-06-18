@@ -33,7 +33,7 @@ function UserForm(props) {
     <ResourceForm 
       customProps={{ actions, resourceName, formProperties, formFields }}
       action={props.action}
-      oldResource={data[0] || {}}
+      oldResource={data || {}}
       loading={loading}
     />
   )
