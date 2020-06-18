@@ -1,3 +1,4 @@
+const moment = require('moment')
 
 const generateSimpleFilterObject = (placeholders, values) => ({
   placeholders: placeholders.reduce((acc, placeholder) => {
@@ -8,17 +9,21 @@ const generateSimpleFilterObject = (placeholders, values) => ({
 })
 
 const prepareResults = (response) => {
-  const results = []
-  for (const result of JSON.parse(JSON.stringify(response.results))) {
-    if (result.createdAt) {
-      result.createdAt = moment(results.createdAt).format('YYYY-MM-DDTHH:mm')
+  const responseResults = JSON.parse(JSON.stringify(response.results))
+  if (Array.isArray(responseResults)) {
+    const resultsArray = []
+    for (const result of responseResults) {
+      if (result.createdAt) {
+        result.createdAt = moment(result.createdAt).format('YYYY-MM-DDTHH:mm')
+      }
+      if (result.updatedAt) {
+        result.updatedAt = moment(result.updatedAt).format('YYYY-MM-DDTHH:mm')
+      }
+      resultsArray.push(result)
     }
-    if (result.updatedAt) {
-      result.updatedAt = moment(results.updatedAt).format('YYYY-MM-DDTHH:mm')
-    }
-    results.push(result)
+    return resultsArray
   }
-  return results
+  return responseResults
 }
 
 module.exports = {
