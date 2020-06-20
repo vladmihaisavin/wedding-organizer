@@ -8,6 +8,14 @@ const generateSimpleFilterObject = (placeholders, values) => ({
   values
 })
 
+const generateBulkFilterObject = (criteriaObjects) => ({
+  placeholders: criteriaObjects.reduce((acc, criteria) => {
+    acc.push(`${ criteria.field } ${ criteria.op } ?`)
+    return acc
+  }, []).join(', '),
+  values: criteriaObjects.map(criteria => criteria.value)
+})
+
 const prepareResults = (response) => {
   const responseResults = JSON.parse(JSON.stringify(response.results))
   if (Array.isArray(responseResults)) {
@@ -28,5 +36,6 @@ const prepareResults = (response) => {
 
 module.exports = {
   generateSimpleFilterObject,
+  generateBulkFilterObject,
   prepareResults
 }

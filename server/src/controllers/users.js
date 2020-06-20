@@ -91,6 +91,62 @@ module.exports = (userRepository) => {
   })
 
   /**
+   * Partially update resources matching criteria
+   * @swagger
+   * /api/users:
+   *   put:
+   *     tags:
+   *       - Users
+   *     name: Partially update users matching criteria
+   *     summary: Partially updates all existing users matching criteria
+   *     security:
+   *       - bearerAuth: []
+   *     consumes:
+   *       - application/json
+   *     produces:
+   *       - application/json
+   *     parameters:
+   *       - name: body
+   *         in: body
+   *         schema:
+   *           type: object
+   *           properties:
+   *             criteria:
+   *               type: array
+   *               items:
+   *                 type: object
+   *                 properties:
+   *                   field:
+   *                     type: string
+   *                   op:
+   *                     type: string
+   *                   value:
+   *                     type: string
+   *             set:
+   *               type: object
+   *     responses:
+   *       204:
+   *         description: No content
+   *       401:
+   *         description: Not authorized to access this resource
+   *       422:
+   *         description: Unprocessable entity
+   *       500:
+   *         description: Internal Server Error
+   */
+  app.patch('/', validate(validationRules.bulkUpdate), async (req, res) => {
+    try {
+      const result = await userRepository.bulkUpdate(req.body)
+      if (result.affectedRows === 1) {
+        return res.sendStatus(204)
+      }
+      return res.sendStatus(404)
+    } catch (err) {
+      return res.sendStatus(500)
+    }
+  })
+
+  /**
    * Show an existing resource
    * @swagger
    * /api/users/{id}:
@@ -161,6 +217,73 @@ module.exports = (userRepository) => {
    *               type: string
    *             email:
    *               type: string
+   *             type:
+   *               type: string
+   *             password:
+   *               type: string
+   *               format: password
+   *         required:
+   *           - name
+   *           - email
+   *           - type
+   *           - password
+   *       - name: id
+   *         in: path
+   *         schema:
+   *           type: string
+   *         required:
+   *           - id
+   *     responses:
+   *       204:
+   *         description: No content
+   *       401:
+   *         description: Not authorized to access this resource
+   *       404:
+   *         description: Not found
+   *       422:
+   *         description: Unprocessable entity
+   *       500:
+   *         description: Internal Server Error
+   */
+  app.put('/:id', validate(validationRules.update), async (req, res) => {
+    try {
+      const result = await userRepository.update(req.params.id, req.body)
+      if (result.affectedRows === 1) {
+        return res.sendStatus(204)
+      }
+      return res.sendStatus(404)
+    } catch (err) {
+      return res.sendStatus(500)
+    }
+  })
+
+  /**
+   * Partially update an existing resource
+   * @swagger
+   * /api/users/{id}:
+   *   put:
+   *     tags:
+   *       - Users
+   *     name: Partially update user
+   *     summary: Partially updates an existing user
+   *     security:
+   *       - bearerAuth: []
+   *     consumes:
+   *       - application/json
+   *     produces:
+   *       - application/json
+   *     parameters:
+   *       - name: body
+   *         in: body
+   *         schema:
+   *           type: object
+   *           properties:
+   *             name:
+   *               type: string
+   *             email:
+   *               type: string
+   *             type:
+   *               type: string
    *             password:
    *               type: string
    *               format: password
@@ -182,7 +305,7 @@ module.exports = (userRepository) => {
    *       500:
    *         description: Internal Server Error
    */
-  app.put('/:id', validate(validationRules.update), async (req, res) => {
+  app.patch('/:id', validate(validationRules.partialUpdate), async (req, res) => {
     try {
       const result = await userRepository.update(req.params.id, req.body)
       if (result.affectedRows === 1) {

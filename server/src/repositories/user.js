@@ -1,7 +1,7 @@
 const userModel = require('../models/user.json')
 const { hashPassword } = require('../helpers/bcrypt')
 const { getCurrentTimestamp } = require('../helpers/moment')
-const { generateSimpleFilterObject, prepareResults } = require('../helpers/mysqlClient')
+const { generateSimpleFilterObject, generateBulkFilterObject, prepareResults } = require('../helpers/mysqlClient')
 
 module.exports = (mysqlClient) => {
   const list = async () => {
@@ -72,6 +72,20 @@ module.exports = (mysqlClient) => {
     }
   }
 
+  const bulkUpdate = async (body) => {
+    try {
+      body.set.updatedAt = getCurrentTimestamp()
+      return prepareResults(await mysqlClient.update(
+        userModel.tableName,
+        body.set,
+        generateBulkFilterObject(body.criteria),
+      ))
+    } catch (err) {
+      console.error(err)
+      throw err
+    }
+  }
+
   const destroy = async (id) => {
     try {
       return prepareResults(await mysqlClient.destroy(
@@ -90,6 +104,7 @@ module.exports = (mysqlClient) => {
     getById,
     getByEmail,
     update,
+    bulkUpdate,
     destroy
   }
 }

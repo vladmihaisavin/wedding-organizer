@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom'
 import ResourceForm from '../structure/ResourceForm.jsx'
 import { useLoadResource } from '../../services/loadResourceHook'
 import { resourceName, resourceUrl, formProperties, formFields } from '../../static/userResource.json'
-import { createResource, updateResource } from '../../services/users'
+import { createResource, partialUpdateResource } from '../../services/users'
 import { sanitizeBody } from '../../helpers'
 
 function UserForm(props) {
@@ -17,7 +17,7 @@ function UserForm(props) {
           await createResource(sanitizeBody(resourceBody))
           break
         case 'update':
-          await updateResource(resourceId, sanitizeBody(resourceBody))
+          await partialUpdateResource(resourceId, sanitizeBody(resourceBody))
           break
         default:
           break

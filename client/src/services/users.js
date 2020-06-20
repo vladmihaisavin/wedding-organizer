@@ -4,8 +4,12 @@ export async function createResource(body) {
   return httpClient.post('/users', body)
 }
 
-export async function updateResource(userId, body) {
-  return httpClient.put(`/users/${userId}`, body)
+export async function bulkUpdateResource(body) {
+  return httpClient.patch('/users', body)
+}
+
+export async function partialUpdateResource(userId, body) {
+  return httpClient.patch(`/users/${userId}`, body)
 }
 
 export async function deleteResource(userId) {
