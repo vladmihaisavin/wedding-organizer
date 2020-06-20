@@ -124,6 +124,9 @@ module.exports = (userRepository) => {
    *                     type: string
    *             set:
    *               type: object
+   *         required:
+   *           - criteria
+   *           - set
    *     responses:
    *       204:
    *         description: No content
