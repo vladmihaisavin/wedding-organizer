@@ -140,7 +140,7 @@ module.exports = (userRepository) => {
   app.patch('/', validate(validationRules.bulkUpdate), async (req, res) => {
     try {
       const result = await userRepository.bulkUpdate(req.body)
-      if (result.affectedRows === 1) {
+      if (result.affectedRows > 0) {
         return res.sendStatus(204)
       }
       return res.sendStatus(404)

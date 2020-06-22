@@ -52,6 +52,7 @@ function Content(props) {
                 data={resources}
                 listProperties={customProps.listProperties}
                 resourceUrl={customProps.resourceUrl}
+                bulkUpdate={customProps.actions.bulkUpdate}
                 delete={customProps.actions.delete}
               />
             )

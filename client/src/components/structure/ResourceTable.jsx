@@ -109,7 +109,7 @@ function ResourceTable(props) {
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
-        <ResourceTableToolbar selectedIds={selected} delete={props.delete} />
+        <ResourceTableToolbar selectedIds={selected} bulkUpdate={props.bulkUpdate} delete={props.delete} />
         <TableContainer>
           <Table
             className={classes.table}

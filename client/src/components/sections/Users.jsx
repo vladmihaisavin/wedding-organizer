@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { withRouter } from 'react-router-dom'
 import ContentResource from '../structure/ContentResource.jsx'
 import { useLoadResource } from '../../services/loadResourceHook'
-import { resourceName, resourceUrl, listProperties } from '../../static/userResource.json'
-import { deleteResource } from '../../services/users'
+import { resourceName, resourceUrl, listProperties, bulkUpdateFields } from '../../static/userResource.json'
+import { bulkUpdateResource, deleteResource } from '../../services/users'
 
 function Users() {
   const [shouldLoad, setShouldLoad] = useState(true)
@@ -20,6 +20,21 @@ function Users() {
       }
       setShouldLoad(true)
     },
+    bulkUpdate: bulkUpdateFields.length > 0 ? async (selectedIds) => {
+      setPreloader(true)
+      await bulkUpdateResource({
+        criteria: [{
+          field: 'id',
+          op: 'in',
+          value: selectedIds
+        }],
+        set: bulkUpdateFields.reduce((acc, item) => {
+          acc[item.field] = item.defaultValue
+          return acc
+        }, {})
+      })
+      setShouldLoad(true)
+    } : undefined,
     search: (term, field) => {
       setResources(data.filter((item) => item[field].split(term).length > 1))
     }

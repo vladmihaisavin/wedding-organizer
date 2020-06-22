@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography'
 import IconButton from '@material-ui/core/IconButton'
 import Tooltip from '@material-ui/core/Tooltip'
 import DeleteIcon from '@material-ui/icons/Delete'
+import ArchiveIcon from '@material-ui/icons/Archive'
 import FilterListIcon from '@material-ui/icons/FilterList'
 import ResourceTableToolbarStyles from '../../styles/resourceTableToolbar'
 
@@ -29,11 +30,23 @@ const ResourceTableToolbar = (props) => {
       )}
 
       {numSelected > 0 ? (
-        <Tooltip title='Delete'>
-          <IconButton aria-label='delete' onClick={() => props.delete(selectedIds)}>
-            <DeleteIcon />
-          </IconButton>
-        </Tooltip>
+        <React.Fragment>
+          {
+            props.bulkUpdate ? (
+              <Tooltip title='Bulk Update'>
+                <IconButton aria-label='bulkUpdate' onClick={() => props.bulkUpdate(selectedIds)}>
+                  <ArchiveIcon />
+                </IconButton>
+              </Tooltip>
+            )
+            : ''
+          }
+          <Tooltip title='Delete'>
+            <IconButton aria-label='delete' onClick={() => props.delete(selectedIds)}>
+              <DeleteIcon />
+            </IconButton>
+          </Tooltip>
+        </React.Fragment>
       ) : (
         <Tooltip title='Filter list'>
           <IconButton aria-label='filter list'>

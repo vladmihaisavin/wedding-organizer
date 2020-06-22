@@ -13,7 +13,7 @@ const generateBulkFilterObject = (criteriaObjects) => ({
     acc.push(`${ criteria.field } ${ criteria.op } ?`)
     return acc
   }, []).join(', '),
-  values: criteriaObjects.map(criteria => criteria.value)
+  values: criteriaObjects.map(criteria => Array.isArray(criteria.value) ? [criteria.value] : criteria.value)
 })
 
 const prepareResults = (response) => {
