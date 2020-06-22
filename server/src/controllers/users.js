@@ -94,7 +94,7 @@ module.exports = (userRepository) => {
    * Partially update resources matching criteria
    * @swagger
    * /api/users:
-   *   put:
+   *   patch:
    *     tags:
    *       - Users
    *     name: Partially update users matching criteria
@@ -264,7 +264,7 @@ module.exports = (userRepository) => {
    * Partially update an existing resource
    * @swagger
    * /api/users/{id}:
-   *   put:
+   *   patch:
    *     tags:
    *       - Users
    *     name: Partially update user
