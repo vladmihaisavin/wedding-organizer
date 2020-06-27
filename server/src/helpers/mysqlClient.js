@@ -16,7 +16,7 @@ const generateBulkFilterObject = (criteriaObjects) => ({
   values: criteriaObjects.map(criteria => Array.isArray(criteria.value) ? [criteria.value] : criteria.value)
 })
 
-const prepareResults = (response) => {
+const prepareResults = (response, urlForResources = []) => {
   const responseResults = JSON.parse(JSON.stringify(response.results))
   if (Array.isArray(responseResults)) {
     const resultsArray = []
@@ -26,6 +26,13 @@ const prepareResults = (response) => {
       }
       if (result.updatedAt) {
         result.updatedAt = moment(result.updatedAt).format('YYYY-MM-DDTHH:mm')
+      }
+      if (urlForResources.length > 0) {
+        urlForResources.forEach(resource => {
+          if (result.hasOwnProperty(resource.key) && result[resource.key]) {
+            result[resource.key] = `/${resource.slug}/${result[resource.key]}`
+          }
+        })
       }
       resultsArray.push(result)
     }
