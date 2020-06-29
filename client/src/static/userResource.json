@@ -8,10 +8,10 @@
     { "id": "createdAt", "numeric": false, "disablePadding": false, "label": "Created At", "type": "datetime-local" }
   ],
   "formProperties": [
-    { "id": "name", "label": "Name" },
-    { "id": "email", "label": "Email" },
-    { "id": "type", "label": "Type" },
-    { "id": "password", "label": "Password", "type": "password" }
+    { "id": "name", "label": "Name", "required": true },
+    { "id": "email", "label": "Email", "required": true },
+    { "id": "type", "label": "Type", "required": false },
+    { "id": "password", "label": "Password", "type": "password", "required": true }
   ],
   "formFields": [
     "name",

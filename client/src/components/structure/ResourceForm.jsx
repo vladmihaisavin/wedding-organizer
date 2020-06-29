@@ -44,7 +44,7 @@ function ResourceForm(props) {
                       name={property.id}
                       value={resource[property.id]}
                       type={property.type || 'text'}
-                      label={property.label}
+                      label={`${property.label}${ property.required ? '*' : '' }`}
                       variant="outlined"
                       InputLabelProps={{
                         shrink: true,
