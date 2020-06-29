@@ -22,5 +22,11 @@ export default theme => ({
   },
   actionIcon: {
     color: '#009be5'
+  },
+  lastRow: {
+    borderBottom: 0
+  },
+  pagination: {
+    borderTop: '1px solid rgba(224, 224, 224, 1)'
   }
 })

@@ -119,7 +119,7 @@ function ResourceTable(props) {
     if (property.type === 'datetime-local') {
       return moment(row[property.id]).format('MMMM Do YYYY, h:mm:ss a')
     }
-    return row[property.id]
+    return row[property.id] || '-'
   }
 
   return (
@@ -188,13 +188,14 @@ function ResourceTable(props) {
                 })}
               {emptyRows > 0 && (
                 <TableRow style={{ height: 53 * emptyRows }}>
-                  <TableCell colSpan={6} />
+                  <TableCell className={classes.lastRow} colSpan={6} />
                 </TableRow>
               )}
             </TableBody>
           </Table>
         </TableContainer>
         <TablePagination
+          className={classes.pagination}
           rowsPerPageOptions={[5, 10, 25]}
           component='div'
           count={props.data.length}
