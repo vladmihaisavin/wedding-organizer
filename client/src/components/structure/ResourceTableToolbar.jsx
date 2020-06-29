@@ -12,7 +12,7 @@ import FilterListIcon from '@material-ui/icons/FilterList'
 import ResourceTableToolbarStyles from '../../styles/resourceTableToolbar'
 
 const ResourceTableToolbar = (props) => {
-  const { selectedIds, classes } = props
+  const { selectedIds, selectedResources, classes } = props
   const numSelected = selectedIds.length
 
   return (
@@ -34,7 +34,7 @@ const ResourceTableToolbar = (props) => {
           {
             props.bulkUpdate ? (
               <Tooltip title='Bulk Update'>
-                <IconButton aria-label='bulkUpdate' onClick={() => props.bulkUpdate(selectedIds)}>
+                <IconButton aria-label='bulkUpdate' onClick={() => props.bulkUpdate(selectedResources)}>
                   <ArchiveIcon />
                 </IconButton>
               </Tooltip>
@@ -42,7 +42,7 @@ const ResourceTableToolbar = (props) => {
             : ''
           }
           <Tooltip title='Delete'>
-            <IconButton aria-label='delete' onClick={() => props.delete(selectedIds)}>
+            <IconButton aria-label='delete' onClick={() => props.delete(selectedResources)}>
               <DeleteIcon />
             </IconButton>
           </Tooltip>

@@ -4,7 +4,7 @@ const generateSimpleFilterObject = (placeholders, values) => ({
   placeholders: placeholders.reduce((acc, placeholder) => {
     acc.push(`${ placeholder } = ?`)
     return acc
-  }, []).join(', '),
+  }, []).join(' AND '),
   values
 })
 
@@ -12,7 +12,7 @@ const generateBulkFilterObject = (criteriaObjects) => ({
   placeholders: criteriaObjects.reduce((acc, criteria) => {
     acc.push(`${ criteria.field } ${ criteria.op } ?`)
     return acc
-  }, []).join(', '),
+  }, []).join(' AND '),
   values: criteriaObjects.map(criteria => Array.isArray(criteria.value) ? [criteria.value] : criteria.value)
 })
 

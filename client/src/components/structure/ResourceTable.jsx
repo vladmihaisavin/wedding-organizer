@@ -48,6 +48,7 @@ function ResourceTable(props) {
   const [order, setOrder] = useState('asc')
   const [orderBy, setOrderBy] = useState(props.listProperties[0].id)
   const [selected, setSelected] = useState([])
+  const [selectedResources, setSelectedResources] = useState(new Map())
   const [page, setPage] = useState(0)
   const [rowsPerPage, setRowsPerPage] = useState(5)
 
@@ -61,17 +62,23 @@ function ResourceTable(props) {
     if (event.target.checked) {
       const newSelecteds = props.data.map((item) => item.id)
       setSelected(newSelecteds)
+      const resources = new Map()
+      props.data.forEach(resource => {
+        resources.set(resource.id, resource)
+      })
+      setSelectedResources(resources)
       return
     }
     setSelected([])
+    setSelectedResources(new Map())
   }
 
-  const handleClick = (event, name) => {
-    const selectedIndex = selected.indexOf(name)
+  const handleClick = (event, id) => {
+    const selectedIndex = selected.indexOf(id)
     let newSelected = []
 
     if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, name)
+      newSelected = newSelected.concat(selected, id)
     } else if (selectedIndex === 0) {
       newSelected = newSelected.concat(selected.slice(1))
     } else if (selectedIndex === selected.length - 1) {
@@ -84,6 +91,15 @@ function ResourceTable(props) {
     }
 
     setSelected(newSelected)
+    setSelectedResources(prevToBeDeleted => {
+      const resources = new Map(prevToBeDeleted)
+      if (selectedIndex === -1) {
+        resources.set(id, props.data.find(item => item.id === id))
+      } else {
+        resources.delete(id)
+      }
+      return resources
+    })
   }
 
   const handleChangePage = (event, newPage) => {
@@ -109,7 +125,7 @@ function ResourceTable(props) {
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
-        <ResourceTableToolbar selectedIds={selected} bulkUpdate={props.bulkUpdate} delete={props.delete} />
+        <ResourceTableToolbar selectedIds={selected} selectedResources={selectedResources} bulkUpdate={props.bulkUpdate} delete={props.delete} />
         <TableContainer>
           <Table
             className={classes.table}
@@ -126,6 +142,7 @@ function ResourceTable(props) {
               onRequestSort={handleRequestSort}
               rowCount={props.data.length}
               listProperties={props.listProperties}
+              tableType={props.tableType}
             />
             <TableBody>
               {stableSort(props.data, getComparator(order, orderBy))
@@ -157,11 +174,15 @@ function ResourceTable(props) {
                             : <TableCell component='th' id={labelId} scope='row' padding='none' key={`row${idx}`}>{formatData(row, property)}</TableCell>
                         )
                       }
-                      <TableCell padding='none' key={`edit${row.id}`} align='center'>
-                        <Link to={`${props.resourceUrl}/edit/${row.id}`} style={{ textDecoration: 'none' }}>
-                          <EditIcon className={classes.actionIcon} />
-                        </Link>
-                      </TableCell>
+                      {
+                        props.tableType !== 'pivot'
+                          ? <TableCell padding='none' key={`edit${row.id}`} align='center'>
+                              <Link to={`${props.resourceUrl}/edit/${row.id}`} style={{ textDecoration: 'none' }}>
+                                <EditIcon className={classes.actionIcon} />
+                              </Link>
+                            </TableCell>
+                          : <></>
+                      }
                     </TableRow>
                   )
                 })}

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { withRouter } from 'react-router-dom'
 import ContentResource from '../structure/ContentResource.jsx'
 import { useLoadResource } from '../../services/loadResourceHook'
-import { resourceName, resourceUrl, listProperties, bulkUpdateFields } from '../../static/userResource.json'
+import { resourceName, resourceUrl, listProperties, bulkUpdateFields, tableType } from '../../static/userResource.json'
 import { bulkUpdateResource, deleteResource } from '../../services/users'
 
 function Users() {
@@ -13,20 +13,20 @@ function Users() {
 
   const actions = {
     reload: () => setShouldLoad(true),
-    delete: async (selectedIds) => {
+    delete: async (selectedResources) => {
       setPreloader(true)
-      for (const resourceId of selectedIds) {
+      for (const resourceId of Array.from(selectedResources.keys())) {
         await deleteResource(resourceId)
       }
       setShouldLoad(true)
     },
-    bulkUpdate: bulkUpdateFields.length > 0 ? async (selectedIds) => {
+    bulkUpdate: bulkUpdateFields.length > 0 ? async (selectedResources) => {
       setPreloader(true)
       await bulkUpdateResource({
         criteria: [{
           field: 'id',
           op: 'in',
-          value: selectedIds
+          value: Array.from(selectedResources.keys())
         }],
         set: bulkUpdateFields.reduce((acc, item) => {
           acc[item.field] = item.defaultValue
@@ -53,7 +53,7 @@ function Users() {
   }, [shouldLoad])
 
   return (
-    <ContentResource customProps={{ actions, listProperties, resourceName, resourceUrl }} resources={resources} preloader={preloader} />
+    <ContentResource customProps={{ actions, listProperties, resourceName, resourceUrl, tableType }} resources={resources} preloader={preloader} />
   )
 }
 

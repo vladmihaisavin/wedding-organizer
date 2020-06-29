@@ -24,5 +24,6 @@
       "field": "type",
       "defaultValue": "guest"
     }
-  ]
+  ],
+  "tableType": "normal"
 }

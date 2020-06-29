@@ -24,7 +24,11 @@ function Content(props) {
       <AppBar className={classes.searchBar} position="static" color="default" elevation={0}>
         <Toolbar>
           <Grid container spacing={2} alignItems="center">
-            <Search classes={classes} searchAction={customProps.actions.search} listProperties={customProps.listProperties} />
+            {
+              customProps.tableType !== 'pivot'
+                ? <Search classes={classes} searchAction={customProps.actions.search} listProperties={customProps.listProperties} />
+                : <Grid item xs={9} />
+            }
             <Grid item>
               <Link to={`/${customProps.resourceUrl}/new`} style={{ textDecoration: 'none' }}>
                 <Button variant="contained" color="primary" className={classes.addButton}>
@@ -52,6 +56,7 @@ function Content(props) {
                 data={resources}
                 listProperties={customProps.listProperties}
                 resourceUrl={customProps.resourceUrl}
+                tableType={customProps.tableType}
                 bulkUpdate={customProps.actions.bulkUpdate}
                 delete={customProps.actions.delete}
               />

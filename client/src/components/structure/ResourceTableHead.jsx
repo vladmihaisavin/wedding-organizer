@@ -7,7 +7,7 @@ import TableSortLabel from '@material-ui/core/TableSortLabel'
 import Checkbox from '@material-ui/core/Checkbox'
 
 function ResourceTableHead(props) {
-  const { classes, onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } = props
+  const { classes, onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort, tableType } = props
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property)
   }
@@ -27,7 +27,7 @@ function ResourceTableHead(props) {
         .map((headCell) => (
           <TableCell
             key={headCell.id}
-            align={headCell.numeric ? 'right' : 'left'}
+            align="left"
             padding={headCell.disablePadding ? 'none' : 'default'}
             sortDirection={orderBy === headCell.id ? order : false}
           >
@@ -45,12 +45,15 @@ function ResourceTableHead(props) {
             </TableSortLabel>
           </TableCell>
         ))}
-        <TableCell
-          key='actions'
-          align='center'
-          padding='default'
-        >
-        </TableCell>
+        {
+          tableType !== 'pivot'
+            ? <TableCell
+                key='actions'
+                align='center'
+                padding='default'
+              />
+            : <></>
+        }
       </TableRow>
     </TableHead>
   )

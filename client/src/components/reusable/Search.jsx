@@ -9,7 +9,7 @@ import Select from '@material-ui/core/Select'
 
 export default function Search (props) {
   const { classes, listProperties, searchAction } = props
-  const [filter, setFilter] = useState('name')
+  const [filter, setFilter] = useState('')
 
   return (
     <React.Fragment>
