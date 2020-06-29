@@ -5,8 +5,12 @@ import Paper from '@material-ui/core/Paper'
 import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
+import InputLabel from '@material-ui/core/InputLabel'
+import MenuItem from '@material-ui/core/MenuItem'
+import Select from '@material-ui/core/Select'
 import Preloader from '../reusable/Preloader.jsx'
 import ResourceFormStyles from '../../styles/resourceForm'
+import httpClient from '../../services/httpClient'
 
 function generateDefaultResourceObject(formFields, resourceObject = {}) {
   const defaultResourceObject = {}
@@ -19,6 +23,26 @@ function generateDefaultResourceObject(formFields, resourceObject = {}) {
 function ResourceForm(props) {
   const { customProps, classes, oldResource, loading } = props
   const [resource, setResource] = useState(generateDefaultResourceObject(customProps.formFields, oldResource))
+  const [fetchedFields, setFetchedFields] = useState({})
+
+  useEffect(() => {
+    async function fetchFields() {
+      for (const formProperty of customProps.formProperties) {
+        if (formProperty.type === 'select') {
+          const response = await httpClient.get(`/${formProperty.slug}`)
+          let data = {}
+          if (response.status === 200) {
+            data = response.data
+          }
+          setFetchedFields(prevFetchedFields => ({
+            ...prevFetchedFields,
+            [formProperty.id]: data
+          }))
+        }
+      }
+    }
+    fetchFields()
+  }, [customProps.formProperties])
 
   useEffect(() => {
     setResource(generateDefaultResourceObject(customProps.formFields, oldResource))
@@ -38,7 +62,29 @@ function ResourceForm(props) {
             <Grid className={classes.grid} container alignItems="center">
               <Grid item xs={12}>
                 {
-                  customProps.formProperties.map(property => (
+                  customProps.formProperties.map(property => property.type === 'select'
+                  ? (
+                    <>
+                      <InputLabel id={`${property.id}-label`}>{`${property.label}${ property.required ? '*' : '' }`}</InputLabel>
+                      <Select
+                        labelId={`${property.id}-label`}
+                        key={property.id}
+                        id={property.id}
+                        name={property.id}
+                        value={resource[property.id]}
+                        variant="outlined"
+                        size={"small"}
+                        fullWidth
+                        onChange={(e) => setResource({ ...resource, [property.id]: e.target.value })}
+                      >
+                        {
+                          fetchedFields[property.id] && fetchedFields[property.id].map((item) => (
+                            <MenuItem key={ item.id } value={ item.id }>{ item[property.itemLabel] }</MenuItem>
+                          ))
+                        }
+                      </Select>
+                    </>
+                  ): (
                     <TextField
                       key={property.id}
                       name={property.id}
