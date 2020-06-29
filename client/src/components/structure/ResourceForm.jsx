@@ -48,6 +48,11 @@ function ResourceForm(props) {
     setResource(generateDefaultResourceObject(customProps.formFields, oldResource))
   }, [customProps, oldResource])
 
+  const formatSelectValue = (value) => {
+    const particles = value.split('/')
+    return particles.length > 1 ? particles[particles.length - 1] : particles[0]
+  }
+
   return (
     <Paper className={classes.paper}>
       {
@@ -71,7 +76,7 @@ function ResourceForm(props) {
                         key={property.id}
                         id={property.id}
                         name={property.id}
-                        value={resource[property.id]}
+                        value={formatSelectValue(resource[property.id])}
                         variant="outlined"
                         size={"small"}
                         fullWidth
