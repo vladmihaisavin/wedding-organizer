@@ -49,7 +49,7 @@ function ResourceForm(props) {
   }, [customProps, oldResource])
 
   const formatSelectValue = (value) => {
-    const particles = value.split('/')
+    const particles = value.toString().split('/')
     return particles.length > 1 ? particles[particles.length - 1] : particles[0]
   }
 
@@ -69,7 +69,7 @@ function ResourceForm(props) {
                 {
                   customProps.formProperties.map(property => property.type === 'select'
                   ? (
-                    <>
+                    <React.Fragment key={property.id}>
                       <InputLabel id={`${property.id}-label`}>{`${property.label}${ property.required ? '*' : '' }`}</InputLabel>
                       <Select
                         labelId={`${property.id}-label`}
@@ -88,7 +88,7 @@ function ResourceForm(props) {
                           ))
                         }
                       </Select>
-                    </>
+                    </React.Fragment>
                   ): (
                     <TextField
                       key={property.id}
