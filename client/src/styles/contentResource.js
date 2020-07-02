@@ -26,4 +26,7 @@ export default theme => ({
     margin: theme.spacing(1),
     minWidth: 120,
   },
+  emptyResourceTable: {
+    margin: '10px 0 10px 0'
+  }
 })

@@ -44,7 +44,7 @@ function Content(props) {
           </Grid>
         </Toolbar>
       </AppBar>
-      <div className={preloader ? classes.contentWrapper : classes.tableContentWrapper}>
+      <div className={preloader ? classes.contentWrapper : (resources.length > 0 ? classes.tableContentWrapper : classes.emptyResourceTable)}>
         {
           preloader
           ? (
